@@ -155,20 +155,20 @@ $P(\omega_1|x) = P (\omega_2|x)$
 
 $\Leftrightarrow \frac{p(x|\omega_1)\cdot P(\omega_1)}{\not{p(x)}} = \frac{p(x|\omega_2) \cdot P(\omega_2)}{\not{p(x)}}$
 
-$\Leftrightarrow \frac{\not{-\not{1}}}{\not{16}}\cdot exp(\frac{-(x-\mu)}{6}) \cdot P(\omega_1) = \frac{\not{-\not{1}}}{\not{16}}\cdot exp(\frac{-(x+\mu)}{6}) \cdot P(\omega_2)$
+$\Leftrightarrow \frac{\not{-\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) = \frac{\not{-\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
 
-$\Leftrightarrow \frac{|x-\mu|}{6} + ln(P(\omega_1)) = \frac{|x+\mu|}{6} + ln (P(\omega_2))$
+$\Leftrightarrow \frac{|x-\mu|}{\sigma} + ln(P(\omega_1)) = \frac{|x+\mu|}{\sigma} + ln (P(\omega_2))$
 
 
 \item[(b)]
 That means: 
 $P(\omega_1|x) > P(\omega_2|x)\ \forall \ x \in \mathbb{R}$
 
-$\Leftrightarrow \frac{\not{1}}{\not{16}}\cdot exp(\frac{-(x-\mu)}{6}) \cdot P(\omega_1) > \frac{\not{1}}{\not{16}}\cdot exp(\frac{-(x+\mu)}{6}) \cdot P(\omega_2)$
+$\Leftrightarrow \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) > \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
 
-$\Leftrightarrow ln(P(\omega_1)) - \frac{|x-\mu|}{6} > ln(P(\omega_2)) - \frac{|x+\mu|}{6}$
+$\Leftrightarrow ln(P(\omega_1)) - \frac{|x-\mu|}{\sigma} > ln(P(\omega_2)) - \frac{|x+\mu|}{\sigma}$
 
-$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{6} + \frac{|x-\mu|}{6}$
+$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{\sigma} + \frac{|x-\mu|}{\sigma}$
 
 \vspace{0.3cm} 
 
@@ -177,7 +177,9 @@ $\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{6} + \frac{|
 \textbf{Case:} $P(\omega_1) = 1 \Rightarrow \omega_1$ is always selected. \\
 
 \textbf{General case:} $\omega_i$ is always selected when: \\
-$ln(P\omega_1)) > ln(P(\omega_")) + \frac{2 \mu}{6}$
+$ln(P\omega_1)) > ln(P(\omega_")) + \frac{2 \mu}{\sigma}$
+
+The right-hand side of the equality is the maximum of the function, achieved when $x = \mu$
 
 \item[(c)]
 The derivation is equivalent:
@@ -185,21 +187,21 @@ The derivation is equivalent:
 \begin{description}
 \item \textbf{Boundary:}\\
 
-$ln(P(\omega_1)) - \frac{x-\mu)^2}{26^2} = ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2}$ 
+$ln(P(\omega_1)) - \frac{(x-\mu)^2}{2\sigma^2} = ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2}$ 
 
 \vspace{0.3cm} 
 
 \item \textbf{Values:} \\
 
-$ln(P(\omega_1)) - \frac{x-\mu)^2}{26^2} > ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2}$ \\
+$ln(P(\omega_1)) - \frac{(x-\mu)^2}{2\sigma^2} > ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2}$ \\
 
-$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2} + \frac{(x-\mu)^2}{26^2}$ \\
+$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2} + \frac{(x-\mu)^2}{2\sigma^2}$ \\
 
 $\omega_1$ is selected $\forall x \in \mathbb{R}$ when: \\
 
 $\mu = 0$ and  $P(\omega_1) > P(\omega_2)$ \\
 
-Otherwise, $ln(P(\oemga_2)) - \frac{(x+\mu)^2}{26^2} + \frac{(x-\mu)^2}{26^2} \rightarrow \infty$
+Otherwise, $ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2} + \frac{(x-\mu)^2}{2\sigma^2} \rightarrow \infty$
 
 \end{description}
 

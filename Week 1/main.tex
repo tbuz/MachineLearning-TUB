@@ -1,0 +1,212 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{footmisc}
+\usepackage{amsfonts}
+\usepackage{geometry}
+\geometry{a4paper, top=25mm, left=25mm, right=20mm, bottom=30mm,
+headsep=10mm, footskip=15mm}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\title{ML1 - Assignment 1}
+\author{Tolga Buz}
+\date{October 2017}
+
+\begin{document}
+
+\begin{centering}
+\begin{LARGE}
+Machine Learning 1 \\
+Exercise Sheet 1 \\
+\end{LARGE}
+\vspace{0.5cm}
+TU Berlin\\
+WS 2017/18
+\vspace{0.5cm}
+\hline
+
+\begin{description}
+\item[Group: BSSBCH]
+\item Matthias Bigalke, 339547, maku@win.tu-berlin.de 
+\item Tolga Buz, 346836, buz\_tolga@yahoo.de 
+\item Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com 
+\item Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de 
+\item Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de 
+\item Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com 
+\end{description}
+\end{centering}
+
+\hline
+
+\begin{verbatim}
+\end{verbatim}
+
+\paragraph{Exercise 1: Estimating Bayes Error}
+
+\begin{description}
+\item[(a)] Show that the full error can be upper-bounded as follows:
+
+$P(error) \leq \int \frac{2}{\frac{1}{P(\omega_1|x)} + \frac{1}{P(\omega_2|x)}}\ p(x)\ dx$
+
+$\Leftrightarrow \int P(error|x)p(x)dx \leq \int \frac{2}{\frac{1}{P(\omega_1|x)} + \frac{1}{P(\omega_2|x)}}\ p(x)\ dx$
+
+$\Leftrightarrow \int P(error|x)\ p(x)\ dx \leq \int \frac{2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) }{P(\omega_2|x) + P(\omega_1|x)}\ p(x)\ dx$
+
+\vspace{0.3cm}
+Using Bayes formula $P(\omega_i|x) = \frac{p(x|\omega_i) \cdot P(\omega_i)}{p(x)}$ leads to:
+\vspace{0.3cm}
+
+$\Leftrightarrow \int P(error|x)p(x)dx \leq \int \frac{2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x) }{\frac{p(x|\omega_1) \cdot P(\omega_1)}{p(x)} + \frac{p(x|\omega_2) \cdot P(\omega_2)}{p(x)}}\ dx$
+
+$\Leftrightarrow \int P(error|x)p(x)dx \leq \int \frac{2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)^2 }{p(x|\omega_1) \cdot P(\omega_1) + p(x|\omega_2) \cdot P(\omega_2)}\ dx$
+
+\vspace{0.3cm}
+With $p(x|\omega_1) \cdot P(\omega_1) + p(x|\omega_2) \cdot P(\omega_2) = p(x)$:
+\vspace{0.3cm}
+
+$\Leftrightarrow \int P(error|x)p(x)dx \leq \int 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)\ dx$
+
+$\Leftrightarrow \int min[P(\omega_1|x), P(\omega_2|x)]p(x)dx \leq \int 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)\ dx$
+
+\vspace{0.3cm}
+If $f(x) \leq g(x)\  \forall \  x$, then $\int f(x)\ dx \leq \int g(x)\  dx \  \forall x$. Thus the integrals can be ignored:
+
+$\Leftrightarrow min[P(\omega_1|x), P(\omega_2|x)]p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)$
+
+\vspace{0.3cm}
+Now there are two cases to consider which can be handled the same way. First we are looking at case $ P(\omega_1|x) \leq P(\omega_1|x)$:
+
+\vspace{0.3cm}
+$\Leftrightarrow P(\omega_1|x) \cdot p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) p(x) $
+
+\vspace{0.3cm}
+$\Leftrightarrow 1 \leq 2 \cdot P(\omega_2 | x)$
+
+\vspace{0.3cm}
+This is true, since $P(\omega_2 | x) \geq P(\omega_1 | x)$ and $P(\omega_1 | x) + P(\omega_2 | x) = 1$. Thus $P(\omega_2 | x) \geq 0.5$ and $\Leftrightarrow 1 \leq 2 \cdot P(\omega_2 | x)$ is valid.
+
+\vspace{0.3cm}
+The second case for $ P(\omega_1|x) \geq P(\omega_1|x)$ can be solved analogously (and 
+$1 \leq 2 \cdot P(\omega_1 | x)$ is valid if $P(\omega_1 | x) \geq P(\omega_2 | x)$).
+
+\vspace{0.3cm}
+This shows that the full error can be upper-bound as given.
+
+\item[(b)]
+
+Show that $P(error) \leq \frac{2P(\omega_1)P(\omega_2)}{\sqrt{1 + 4 \mu^2 P(\omega_1)P(\omega_2)}}$
+
+\vspace{0.3cm}
+We are starting with the term of 1 a) which has been shown to be true:
+\vspace{0.3cm}
+
+$P(error) \leq \int \frac{2}{\frac{1}{P(\omega_1|x)} + \frac{1}{P(\omega_2|x)}}\ p(x)\ dx$
+\vspace{0.3cm}
+
+$\Leftrightarrow P(error) \leq \int \frac{2 p(x)}{\frac{p(x)}{p(x|\omega_1)P(\omega_1)} + \frac{p(x)}{p(x|\omega_2)P(\omega_2)}}\ dx$
+
+$\Leftrightarrow P(error) \leq \int \frac{2}{\frac{1}{p(x|\omega_1)P(\omega_1)} + \frac{1}{p(x|\omega_2)P(\omega_2)}}\ dx$
+
+$\Leftrightarrow P(error) \leq \int \frac{2 \cdot p(x|\omega_1)P(\omega_1) \cdot p(x|\omega_2)P(\omega_2)}{p(x|\omega_1)P(\omega_1) +p(x|\omega_2)P(\omega_2)}\ dx$
+
+$\Leftrightarrow P(error) \leq 2 \cdot P(\omega_1) \cdot P(\omega_2) \int \frac{1}{\pi^2 \cdot (1+(x-\mu)^2) (1+(x+\mu)^2) \cdot (\frac{P(\omega_1)}{\pi(1+(x-\mu)^2)}+\frac{P(\omega_2)}{\pi (1 + (x+\mu)^2)})}\ dx$
+
+$\Leftrightarrow P(error) \leq 2 \cdot P(\omega_1) \cdot P(\omega_2) \int \frac{1}{\pi (P(\omega_1) \cdot (1+(x+\mu)^2)+P(\omega_2)\cdot(1+(x-\mu)^2)}\ dx$
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) \cdot P(\omega_2)}{\pi} \int \frac{1}{P(\omega_1) + P(\omega_1)(x^2+2\mu x+\mu^2)+P(\omega_2)+P(\omega_2)(x^2-2\mu x+\mu^2)}\ dx$
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\pi} \cdot \int\frac{1}{(P(\omega_1) + P(\omega_2)) x^2 + (2 \mu (P(\omega_1)-P(\omega_2))x + \mu^2 P(\omega_1) + \mu^2 P(\omega_2) + P(\omega_1) + P(\omega_2)}$ 
+
+\vspace{0.3cm}
+Using the identity $\int \frac{1}{ax^2 + bx + c} dx = \frac{2 \pi}{\sqrt{4ac-b^2}}$ \footnote[1]{For using the integration identity formula, $b^2 \leq 4ac$ has to be ensured. This is given in our case, since $(1+ 4 \mu^2 P(\omega_1) P(\omega_2)) > 0$}:
+\vspace{0.3cm}
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\pi} \cdot \frac{2 \pi}{\sqrt{4 \cdot (P(\omega_1) + P(\omega_2)) \cdot (1 + \mu^2) (P(\omega_1)+P(\omega_2)) - 4 \mu^2 (P(\omega_1) - P(\omega_2))^2 }}$ 
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\not{\pi}} \cdot \frac{\not{2} \not{\pi}}{\not{2} \sqrt{(P(\omega_1) + P(\omega_2)) \cdot (1 + \mu^2) (P(\omega_1)+P(\omega_2)) - 4 \mu^2 (P(\omega_1) - P(\omega_2))^2 }}$ 
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\sqrt{(P(\omega_1)^2 + 2 \cdot P(\omega_1) P(\omega_2) + P(\omega_2)^2 + 4 \mu^2 P(\omega_1) P(\omega_2) }}$ 
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\sqrt{(P(\omega_1) + P(\omega_2))^2 + 4 \mu^2 P(\omega_1) P(\omega_2) }}$ 
+
+\vspace{0.3cm}
+With $(P(\omega_1) + P(\omega_2))^2 = 1$:
+\vspace{0.3cm}
+
+$\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\sqrt{1 + 4 \mu^2 P(\omega_1) P(\omega_2)}} \hspace{0.5cm} q.e.d.$ 
+
+
+
+\item[(c)]
+
+
+
+
+\end{description}
+
+\paragraph{Exercise 2: Bayes Decision Boundaries}
+
+\begin{description}
+
+\item[(a)]
+The decision boundary will be:
+
+$P(\omega_1|x) = P (\omega_2|x)$
+
+$\Leftrightarrow \frac{p(x|\omega_1)\cdot P(\omega_1)}{\not{p(x)}} = \frac{p(x|\omega_2) \cdot P(\omega_2)}{\not{p(x)}}$
+
+$\Leftrightarrow \frac{\not{-\not{1}}}{\not{16}}\cdot exp(\frac{-(x-\mu)}{6}) \cdot P(\omega_1) = \frac{\not{-\not{1}}}{\not{16}}\cdot exp(\frac{-(x+\mu)}{6}) \cdot P(\omega_2)$
+
+$\Leftrightarrow \frac{|x-\mu|}{6} + ln(P(\omega_1)) = \frac{|x+\mu|}{6} + ln (P(\omega_2))$
+
+
+\item[(b)]
+That means: 
+$P(\omega_1|x) > P(\omega_2|x)\ \forall \ x \in \mathbb{R}$
+
+$\Leftrightarrow \frac{\not{1}}{\not{16}}\cdot exp(\frac{-(x-\mu)}{6}) \cdot P(\omega_1) > \frac{\not{1}}{\not{16}}\cdot exp(\frac{-(x+\mu)}{6}) \cdot P(\omega_2)$
+
+$\Leftrightarrow ln(P(\omega_1)) - \frac{|x-\mu|}{6} > ln(P(\omega_2)) - \frac{|x+\mu|}{6}$
+
+$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{6} + \frac{|x-\mu|}{6}$
+
+\vspace{0.3cm} 
+
+\textbf{Case:} $\mu > 0$ $\Rightarrow \omega_1$ is selected when $P(\omega_1) > P(\omega_2)$\\
+
+\textbf{Case:} $P(\omega_1) = 1 \Rightarrow \omega_1$ is always selected. \\
+
+\textbf{General case:} $\omega_i$ is always selected when: \\
+$ln(P\omega_1)) > ln(P(\omega_")) + \frac{2 \mu}{6}$
+
+\item[(c)]
+The derivation is equivalent:
+
+\begin{description}
+\item \textbf{Boundary:}\\
+
+$ln(P(\omega_1)) - \frac{x-\mu)^2}{26^2} = ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2}$ 
+
+\vspace{0.3cm} 
+
+\item \textbf{Values:} \\
+
+$ln(P(\omega_1)) - \frac{x-\mu)^2}{26^2} > ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2}$ \\
+
+$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{(x+\mu)^2}{26^2} + \frac{(x-\mu)^2}{26^2}$ \\
+
+$\omega_1$ is selected $\forall x \in \mathbb{R}$ when: \\
+
+$\mu = 0$ and  $P(\omega_1) > P(\omega_2)$ \\
+
+Otherwise, $ln(P(\oemga_2)) - \frac{(x+\mu)^2}{26^2} + \frac{(x-\mu)^2}{26^2} \rightarrow \infty$
+
+\end{description}
+
+\end{description}
+
+\paragraph{Exercise 3: Programming}
+
+
+
+\end{document}

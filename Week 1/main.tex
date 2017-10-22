@@ -155,9 +155,9 @@ $P(\omega_1|x) = P (\omega_2|x)$
 
 $\Leftrightarrow \frac{p(x|\omega_1)\cdot P(\omega_1)}{\not{p(x)}} = \frac{p(x|\omega_2) \cdot P(\omega_2)}{\not{p(x)}}$
 
-$\Leftrightarrow \frac{\not{-\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) = \frac{\not{-\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
+$\Leftrightarrow \frac{\not{\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) = \frac{\not{\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
 
-$\Leftrightarrow \frac{|x-\mu|}{\sigma} + ln(P(\omega_1)) = \frac{|x+\mu|}{\sigma} + ln (P(\omega_2))$
+$\Leftrightarrow \frac{-|x-\mu|}{\sigma} + ln(P(\omega_1)) = \frac{-|x+\mu|}{\sigma} + ln (P(\omega_2))$
 
 
 \item[(b)]
@@ -172,14 +172,12 @@ $\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{\sigma} + \f
 
 \vspace{0.3cm} 
 
-\textbf{Case:} $\mu > 0$ $\Rightarrow \omega_1$ is selected when $P(\omega_1) > P(\omega_2)$\\
-
 \textbf{Case:} $P(\omega_1) = 1 \Rightarrow \omega_1$ is always selected. \\
 
 \textbf{General case:} $\omega_i$ is always selected when: \\
-$ln(P\omega_1)) > ln(P(\omega_")) + \frac{2 \mu}{\sigma}$
-
-The right-hand side of the equality is the maximum of the function, achieved when $x = \mu$
+$ln(P\omega_1)) > ln(P(\omega_2)) + \frac{2 \mu}{\sigma}$
+\\
+The right-hand side of the equality is the maximum of the right-hand side function, achieved when $x = - \mu$
 
 \item[(c)]
 The derivation is equivalent:

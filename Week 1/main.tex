@@ -23,7 +23,6 @@ Exercise Sheet 1 \\
 TU Berlin\\
 WS 2017/18
 \vspace{0.5cm}
-\hline
 
 \begin{description}
 \item[Group: BSSBCH]
@@ -35,8 +34,6 @@ WS 2017/18
 \item Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com 
 \end{description}
 \end{centering}
-
-\hline
 
 \begin{verbatim}
 \end{verbatim}
@@ -69,15 +66,15 @@ $\Leftrightarrow \int P(error|x)p(x)dx \leq \int 2 \cdot P(\omega_1|x) \cdot P(\
 $\Leftrightarrow \int min[P(\omega_1|x), P(\omega_2|x)]p(x)dx \leq \int 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)\ dx$
 
 \vspace{0.3cm}
-If $f(x) \leq g(x)\  \forall \  x$, then $\int f(x)\ dx \leq \int g(x)\  dx \  \forall x$. Thus the integrals can be ignored:
+Since $f(x) \leq g(x)\  \forall \  x$, then $\int f(x)\ dx \leq \int g(x)\  dx \  \forall x$ applies, we show for arbitrary $x$:
 
-$\Leftrightarrow min[P(\omega_1|x), P(\omega_2|x)]p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)$
+$min[P(\omega_1|x), P(\omega_2|x)]p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) \cdot p(x)$
 
 \vspace{0.3cm}
 Now there are two cases to consider which can be handled the same way. First we are looking at case $ P(\omega_1|x) \leq P(\omega_1|x)$:
 
 \vspace{0.3cm}
-$\Leftrightarrow P(\omega_1|x) \cdot p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) p(x) $
+$P(\omega_1|x) \cdot p(x) \leq 2 \cdot P(\omega_1|x) \cdot P(\omega_2|x) p(x) $
 
 \vspace{0.3cm}
 $\Leftrightarrow 1 \leq 2 \cdot P(\omega_2 | x)$

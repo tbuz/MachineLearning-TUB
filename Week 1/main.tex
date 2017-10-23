@@ -136,7 +136,8 @@ $\Leftrightarrow P(error) \leq \frac{2 \cdot P(\omega_1) P(\omega_2)}{\sqrt{1 + 
 
 \item[(c)]
 
-
+In low dimensional case we would use numerical integration for error estimation.\\
+For higher diemensional cases numerical integrations are mostly impractible. We would estimate the error by using the Chernoff bound, because Chernoff bound is always tighter to the real error than Bhattacharyya bound. Another benifit of using this bound is the dimensionality reduction from arbitrarily high demsionsional space to one deminsion $\beta$ space.
 
 
 \end{description}
@@ -152,58 +153,102 @@ $P(\omega_1|x) = P (\omega_2|x)$
 
 $\Leftrightarrow \frac{p(x|\omega_1)\cdot P(\omega_1)}{\not{p(x)}} = \frac{p(x|\omega_2) \cdot P(\omega_2)}{\not{p(x)}}$
 
-$\Leftrightarrow \frac{\not{\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) = \frac{\not{\not{1}}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
+$\Leftrightarrow \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-|x-\mu|}{\sigma}) \cdot P(\omega_1) = \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-|x+\mu|}{\sigma}) \cdot P(\omega_2)$
 
-$\Leftrightarrow \frac{-|x-\mu|}{\sigma} + ln(P(\omega_1)) = \frac{-|x+\mu|}{\sigma} + ln (P(\omega_2))$
+$\Leftrightarrow -\frac{|x-\mu|}{\sigma} + ln(P(\omega_1)) = -\frac{|x+\mu|}{\sigma} + ln (P(\omega_2))$
 
 
-\item[(b)]
-That means: 
-$P(\omega_1|x) > P(\omega_2|x)\ \forall \ x \in \mathbb{R}$
+\vspace{0.3cm}
+$\Leftrightarrow ln(P(\omega_1)) - ln (P(\omega_2)) = \frac{|x-\mu|}{\sigma} - \frac{|x+\mu|}{\sigma} $
 
-$\Leftrightarrow \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-(x-\mu)}{\sigma}) \cdot P(\omega_1) > \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-(x+\mu)}{\sigma}) \cdot P(\omega_2)$
+\vspace{0.3cm}
+To decrease the amounts the following four cases have to be considered and are stating:
 
-$\Leftrightarrow ln(P(\omega_1)) - \frac{|x-\mu|}{\sigma} > ln(P(\omega_2)) - \frac{|x+\mu|}{\sigma}$
+\begin{itemize}
+    \item First Case: $(x+\mu) \geq 0$ and $(x - \mu) \geq 0$ or $(x \geq \mu)$:\\
+    $(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma = (x-\mu) - (x+\mu) = -2 \mu$ \\
+    $\Leftrightarrow -(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} = \mu$
+    \item Second Case: $(x+\mu) \geq 0$ and $(x - \mu) \leq 0$ or $(-\mu \leq x \leq \mu)$:\\
+    $(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma = -(x-\mu) -(x+\mu) -  = -2x$ \\
+    $\Leftrightarrow -(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} =  x$
+    \item Third Case: $(x+\mu) \leq 0$ and $(x - \mu) \leq 0$ or $(x \leq -\mu)$:\\
+    $(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma = -(x-\mu) + (x+\mu)   =  2\mu$\\
+    $\Leftrightarrow (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} = \mu$
+    \item The fourth case $(x+\mu) \leq 0$ and $(x - \mu) \geq 0$ is not possible since $\mu > 0$ by definition.
+\end{itemize}
 
-$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{|x+\mu|}{\sigma} + \frac{|x-\mu|}{\sigma}$
+So it follows, that the optimal decision boundary is $-(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} =  x$
 
-\vspace{0.3cm} 
-
-\textbf{Case:} $P(\omega_1) = 1 \Rightarrow \omega_1$ is always selected. \\
-
-\textbf{General case:} $\omega_i$ is always selected when: \\
-$ln(P\omega_1)) > ln(P(\omega_2)) + \frac{2 \mu}{\sigma}$
+\item[(b)] 
+Determine for which $P(\omega_1)$, $P(\omega_2)$, $\mu$ and $\sigma$ the optional decision is to always predict the first class.\\
 \\
-The right-hand side of the inequality is the maximum of the right-hand side function above, achieved when $x = - \mu$
+For this the $P(\omega_1)$, $P(\omega_2)$, $\mu$ and $\sigma$ have to be found for which holds $P(\omega_1|x) > P(\omega_2|x)\ \forall \ x \in \mathbb{R}$.\\
+\\
+If $P(\omega_1) = 1$, $\mu > 0$ and $\sigma > 0$  are arbitrary.\\
+In all other cases, starting from the initial inequality, we get:
+
+$P(\omega_1|x) \geq P (\omega_2|x)$
+
+$\Leftrightarrow \frac{p(x|\omega_1)\cdot P(\omega_1)}{\not{p(x)}} \geq \frac{p(x|\omega_2) \cdot P(\omega_2)}{\not{p(x)}}$
+
+$\Leftrightarrow \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-|x-\mu|}{\sigma}) \cdot P(\omega_1) \geq \frac{\not{1}}{\not{2 \sigma}}\cdot exp(\frac{-|x+\mu|}{\sigma}) \cdot P(\omega_2)$
+
+$\Leftrightarrow -\frac{|x-\mu|}{\sigma} + ln(P(\omega_1)) \geq -\frac{|x+\mu|}{\sigma} + ln (P(\omega_2))$
+
+$\Leftrightarrow ln(P(\omega_1)) - ln (P(\omega_2)) \geq \frac{|x-\mu|}{\sigma} - \frac{|x+\mu|}{\sigma}$
+
+\vspace{0.3cm}
+To decrease the amounts the following four cases have to be considered and are stating the decision boundaries:
+
+\begin{itemize}
+    \item First Case: $(x+\mu) \geq 0$ and $(x - \mu) \geq 0$ or $(x \geq \mu)$:\\
+    $\Leftrightarrow (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma \geq (x-\mu) - (x+\mu) = - 2 \mu$ \\
+    $\Leftrightarrow -(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot (\frac{\sigma}{2}) \leq \mu$
+    \item Second Case: $(x+\mu) \geq 0$ and $(x - \mu) \leq 0$ or $(-\mu \leq x \leq \mu)$:\\
+    $\Leftrightarrow (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma \geq -(x-\mu) - (x+\mu) = -2x$ \\
+    $\Leftrightarrow -(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} \leq  x$
+    \item Third Case: $(x+\mu) \leq 0$ and $(x - \mu) \leq 0$ or $(x \leq -\mu)$:\\
+    $\Leftrightarrow (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \sigma \geq -(x-\mu) - (-(x+\mu)) = 2\mu$\\
+    $\Leftrightarrow (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2} \geq \mu$
+    \item The fourth case $(x+\mu) \leq 0$ and $(x - \mu) \geq 0$ is not possible since $\mu > 0$ by definition.
+\end{itemize}
+
+Considering now the inequalities for $(x \geq \mu)$, $(-\mu \leq x \leq \mu)$ and $(x \leq -\mu)$ which have to be met for predicting the first class over the second:
+
+\vspace{0.3cm}
+If $-(ln(P(\omega_1)) - ln (P(\omega_2))) \cdot (\frac{\sigma}{2}) \leq \mu \leq (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2}$ all inequalities are fulfilled for their definition ranges for every x.\\
+Since $\mu > 0$ by definition, the following condition has to be met for always predicting the first class:
+ $\mu \leq (ln(P(\omega_1)) - ln (P(\omega_2))) \cdot \frac{\sigma}{2}$
 
 \item[(c)]
-The derivation is equivalent:
 
 \begin{description}
-\item \textbf{Boundary:}\\
-
-$ln(P(\omega_1)) - \frac{(x-\mu)^2}{2\sigma^2} = ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2}$ 
+\item \textbf{Boundary for Gaussian distribution:}\\
+\\
+$P(\omega_1|x) = P(\omega_2|x)$
 
 \vspace{0.3cm} 
+$\Leftrightarrow  ln(P(\omega_1)) - \frac{(x-\mu)^2}{2\sigma^2} = ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2}$
 
-\item \textbf{Values:} \\
+\vspace{0.3cm} 
+$\Leftrightarrow ln(P(\omega_1)) - ln(P(\omega_2)) = \frac{(x-\mu)^2 - (x+\mu)^2}{2\sigma^2}$
 
-$ln(P(\omega_1)) - \frac{(x-\mu)^2}{2\sigma^2} > ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2}$ \\
+\vspace{0.3cm} 
+$\Leftrightarrow (ln(P(\omega_1)) - ln(P(\omega_2)) \cdot 2\sigma^2 = x^2 - 2x\mu + \mu^2 - (x^2 + 2x\mu + \mu^2)$
 
-$\Leftrightarrow ln(P(\omega_1)) > ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2} + \frac{(x-\mu)^2}{2\sigma^2}$ \\
+\vspace{0.3cm} 
+$\Leftrightarrow (ln(P(\omega_1)) - ln(P(\omega_2)) \cdot 2\sigma^2 = -4x\mu$
 
-$\omega_1$ is selected $\forall x \in \mathbb{R}$ when: \\
+\vspace{0.3cm} 
+$\Leftrightarrow x = -(ln(P(\omega_1)) - ln(P(\omega_2)) \cdot \frac{\sigma^2}{2\mu} $
 
-$\mu = 0$ and  $P(\omega_1) > P(\omega_2)$ \\
-
-Otherwise, $ln(P(\omega_2)) - \frac{(x+\mu)^2}{2\sigma^2} + \frac{(x-\mu)^2}{2\sigma^2} \rightarrow \infty $ when $x \rightarrow -\infty$.
-
+So the boundary is given by $x = -(ln(P(\omega_1)) - ln(P(\omega_2)) \cdot \frac{\sigma^2}{2\mu}$.\\
+\item \textbf{Values so that }$\forall x : P(w_1|x) \geq P(w_2|x)$\\
+\\
+If $P(\omega_1) = 1$, $\mu$ and $\sigma > 0$  are arbitrary. In all other cases $\mu$ and $\sigma$ can't be found.\\
 \end{description}
 
 \end{description}
 
-\paragraph{Exercise 3: Programming}
-
-See Exercise1/sheet01.ipynb for the solution.
 
 \end{document}

@@ -1,55 +1,258 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University/School Laboratory Report
+% LaTeX Template
+% Version 3.1 (25/3/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Linux and Unix Users Group at Virginia Tech Wiki 
+% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
 \documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{footmisc}
-\usepackage{amsfonts}
-\usepackage{geometry}
-\geometry{a4paper, top=25mm, left=25mm, right=20mm, bottom=30mm,
-headsep=10mm, footskip=15mm}
 
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
 
-\title{ML1 - Assignment 2}
-\author{Tolga Buz}
-\date{October 2017}
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 2} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
 
 \begin{document}
 
-\begin{centering}
-\begin{LARGE}
-Machine Learning 1 \\
-Exercise Sheet 1 \\
-\end{LARGE}
-\vspace{0.5cm}
-TU Berlin\\
-WS 2017/18
-\vspace{0.5cm}
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
 
-\begin{description}
-\item[Group: BSSBCH]
-\item Matthias Bigalke, 339547, maku@win.tu-berlin.de 
-\item Tolga Buz, 346836, buz\_tolga@yahoo.de 
-\item Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com 
-\item Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de 
-\item Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de 
-\item Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com 
-\end{description}
-\end{centering}
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
 
-\begin{verbatim}
-\end{verbatim}
+\section{Maximum-Likelihood Estimation}
 
-\section*{Exercise 1}
-\subsection*{(a)}
-\subsection*{(b)}
-\subsection*{(c)}
-\subsection*{(d)}
-\section*{Exercise 2}
-\subsection*{(a)}
-\subsection*{(b)}
-\subsection*{(c)}
-\subsection*{(d)}
+We consider the problem of estimating using the maximum-likelihood approach the parameters $\lambda, \eta > 0$ of the probability
+distribution: $p(x, y) = \lambda\eta e ^ {- \lambda x - \eta y}$ supported on $\mathbb{R}^2_+$. We consider a dataset $D = ((x_1, y_1), . . . ,(x_N , y_N ))$ composed of $N$ independent draws from this
+distribution.
 
+\subsection{Task a)}
 
+\textit{Show that x and y are independent.}\\
+\\
+A joint distribution of $x$ and $y$ can be expressed as:
+
+\begin{equation}
+p(x,y) = p(x|y)p(y) = p(y|x)p(x) 
+\end{equation}
+
+For $x$ and $y$ being independent, $p(x|y) = p(x)$ and $p(y|x) = p(y)$. This leads to:
+
+\begin{equation}
+p(x, y) = p(x) \cdot p(y)
+\end{equation}
+
+... and considering the given probability distribution:
+
+\begin{equation}
+p(x) \cdot p(y) = \lambda\eta e ^ {- \lambda x - \eta y}
+\end{equation}
+
+Now the single probabilities $p(x)$ and $p(y)$ have to be computed:
+
+\begin{align}
+\begin{aligned}\label{eq:probx}
+p(x) 	& = \int_y p(x, y) dy = \int_y \lambda\eta e ^ {- \lambda x - \eta y} dy = \lim\limits_{C\rightarrow \infty}\lbrack-\lambda e ^{-\lambda x - \eta y}\rbrack^{C}_0 \\
+	& = \lim\limits_{C\rightarrow \infty}(-\lambda e ^{-\lambda x - \eta C}) + \lambda e ^{-\lambda x } = 0 + \lambda e ^{-\lambda x } \\
+	& = \lambda e ^{-\lambda x }
+\end{aligned}
+\end{align}
+
+\begin{align}
+\begin{aligned}\label{eq:proby}
+p(y) 	& = \int_x p(x, y) dx = \int_x \lambda\eta e ^ {- \lambda x - \eta y} dx = \lim\limits_{C\rightarrow \infty}\lbrack-\eta e ^{-\lambda x - \eta y}\rbrack^{C}_0 \\
+	& = \lim\limits_{C\rightarrow \infty}(-\eta e ^{-\lambda x - \eta y}) + \eta e ^{- \eta y} = 0 + \eta e ^{- \eta y}\\
+	& = \eta e ^{- \eta y}
+\end{aligned}
+\end{align}
+
+Multiplying the single probabilities (equations \ref{eq:probx} and \ref{eq:proby}) leads to:
+
+\begin{align}
+\begin{aligned}
+p(x) \cdot p(y) & = \lambda e ^{-\lambda x }  \cdot \eta e ^{- \eta y} = \lambda \eta e ^{-\lambda x - \eta y} = p(x,y)
+\end{aligned}
+\end{align}
+
+This shows that $x$ and $y$ are independent.
+
+\subsection{Task b)}
+
+\textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$.}\\
+\\
+Considering the given dataset $D$, the following function can be interpreted as likelihood:
+
+\begin{equation}
+p(D|\omega,\lambda) = p(D|\lambda) = \prod_{i=1}^{N} p(x_i|\lambda)
+\end{equation}
+
+The maximum likelihood principle in this case selects the parameter $\lambda$ which is maximally likely given the dataset $D$. But the log-likelihood will be maximized since it finds the same maximum:
+
+\begin{equation}
+l(\lambda) = ln(p(D|\lambda)) = ln(\prod_{i=1}^{N} p(x_i|\lambda)) = \sum_{i=1}^{N} ln(p((x_i, y_i)|\lambda))
+\end{equation}
+
+That leads to a maximum likelihood $\hat{\lambda}$ of:
+
+\begin{align}
+\begin{aligned}
+\hat{\lambda} 	& = \underset{\lambda}{arg ~ max} (l(\lambda)) = \underset{\lambda}{arg ~ min} (- l(\lambda))\\
+			& = \underset{\lambda}{arg ~ min} (- l(\lambda)) = \underset{\lambda}{arg ~ min} (-  \sum_{i=1}^{N} ln(p((x_i, y_i)|\lambda)))
+\end{aligned}
+\end{align}
+
+If $p(D|\lambda)$ is a well-behaved, differentiable function of $\lambda$, $\hat{\lambda}$ can be found with using $\nabla_\lambda$ ($\nabla_l (\lambda) = (\frac{\partial l(\lambda)}{\partial\lambda1}, . . . , \frac{\partial l(\lambda)}{ \partial\lambda_N})^T$) as gradient operator: 
+
+\begin{equation}\label{eq:mincond}
+\nabla_\lambda l(\lambda) = -  \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda)) \overset{!}{=} 0
+\end{equation}
+
+This leads to:
+
+\begin{align}
+\begin{aligned}
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda)) \\
+					 & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda\eta e ^ {- \lambda x_i - \eta y_i}) \\
+					 & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\eta) + (- \lambda x_i - \eta y_i)) \\
+					 & = - \sum_{i=1}^{n} (\frac{1}{\lambda} - x_i) \\
+					 & = - \sum_{i=1}^{n} (\frac{1}{\lambda})  + \sum_{i=1}^{n}( x_i) \\
+					 & = - (\frac{n}{\lambda})  + \sum_{i=1}^{n}( x_i) \\
+\end{aligned}
+\end{align}
+
+Considering the the minimum condition from equation \ref{eq:mincond}, this leads to:
+
+\begin{align}
+\begin{aligned}
+ 			& - (\frac{n}{\lambda})  + \sum_{i=1}^{n}( x_i) 	= 0\\
+ \Leftrightarrow  & \lambda =  \frac{n}{\sum_{i=1}^{n}( x_i)}
+\end{aligned}
+\end{align}
+
+\subsection{Task c)}
+
+\textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$ under the constraint $\eta = \frac{1}{\lambda}$.}\\
+\\
+The solution can be found analogously to Task b) except the adjusted function $p(x, y) = \lambda\frac{1}{\lambda} e ^ {- \lambda x - \frac{1}{\lambda} y}$. Starting point for the following computation is equation \ref{eq:mincond}:
+
+\begin{align}
+\begin{aligned}
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
+					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda\frac{1}{\lambda} e ^ {- \lambda x_i - \frac{1}{\lambda} y_i})\\
+					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\frac{1}{\lambda}) - \lambda x_i - \frac{1}{\lambda} y_i)\\
+					& = - \sum_{i=1}^{n} \frac{1}{\lambda}  - \frac{1}{\lambda} - x_i + \frac{1}{\lambda^2} y_i\\
+					& = - \sum_{i=1}^{n} - x_i + \frac{1}{\lambda^2} y_i\\
+					& = \sum_{i=1}^{n} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i\\
+\end{aligned}
+\end{align}
+
+Now considering the condition $\nabla_\lambda l(\lambda) \overset{!}{=} 0$:
+
+\begin{align}
+\begin{aligned}
+& \sum_{i=1}^{n} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i = 0 \\
+\Leftrightarrow & \sum_{i=1}^{n} x_i = \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i \\
+\Leftrightarrow & \lambda^2 = \frac{ \sum_{i=1}^{n} y_i }{\sum_{i=1}^{n} x_i} \\
+\Leftrightarrow & \lambda = \pm \sqrt{\frac{ \sum_{i=1}^{n} y_i }{\sum_{i=1}^{n} x_i}} \\
+\end{aligned}
+\end{align}
+
+\subsection{Task d)}
+
+\textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$ under the constraint $\eta = 1 - \lambda$.}\\
+\\
+The solution can be found analogously to Task b) except the adjusted function $p(x, y) = \lambda( 1- \lambda) e ^ {- \lambda x - (1- \lambda) y}$. Starting point for the following computation is equation \ref{eq:mincond}:
+
+\begin{align}
+\begin{aligned}
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
+					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda( 1- \lambda) e ^ {- \lambda x_i - (1- \lambda) y_i})\\
+					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln( 1- \lambda) - \lambda x_i - (1- \lambda) y_i)\\
+					& = - \sum_{i=1}^{n} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) \\
+\end{aligned}
+\end{align}
+
+Now considering the condition $\nabla_\lambda l(\lambda) \overset{!}{=} 0$:
+
+\begin{align}
+\begin{aligned}
+& - \sum_{i=1}^{n} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) = 0 \\
+\Leftrightarrow & - \sum_{i=1}^{n}( y_i - x_i)  - \frac{n}{\lambda} + \frac{n}{1-\lambda} = 0\\
+\Leftrightarrow & \frac{n}{1-\lambda}  - \frac{n}{\lambda} = \sum_{i=1}^{n}( y_i - x_i)\\
+\Leftrightarrow & n \lambda -n(1-\lambda) = \sum_{i=1}^{n}( y_i - x_i) \lambda (1 - \lambda)\\
+\Leftrightarrow & n \lambda -n + n\lambda = \sum_{i=1}^{n}( y_i - x_i) (\lambda - \lambda^2)\\
+\Leftrightarrow & (\sum_{i=1}^{n}( y_i - x_i)) \lambda^2 + (2n - \sum_{i=1}^{n}( y_i - x_i))\lambda - n = 0\\
+\Leftrightarrow & \lambda^2 + \frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{\sum_{i=1}^{n}( y_i - x_i)}\lambda - \frac{n}{\sum_{i=1}^{n}( y_i - x_i)} = 0\\
+\Leftrightarrow & \lambda_{1,2} = - \frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{2 \sum_{i=1}^{n}( y_i - x_i)}\pm \sqrt{(\frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{2 \sum_{i=1}^{n}( y_i - x_i)})^2 +\frac{n}{\sum_{i=1}^{n}( y_i - x_i)}} \\
+\end{aligned}
+\end{align}
+
+ 
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Multiple Linear Regression}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Programming}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\bibliographystyle{apalike}
+
+%\bibliography{sample}
+
+%----------------------------------------------------------------------------------------
 
 
 \end{document}

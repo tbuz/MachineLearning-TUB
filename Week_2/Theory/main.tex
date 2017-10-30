@@ -1,20 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% University/School Laboratory Report
-% LaTeX Template
-% Version 3.1 (25/3/14)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Linux and Unix Users Group at Virginia Tech Wiki 
-% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %----------------------------------------------------------------------------------------
 %	PACKAGES AND DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
@@ -70,7 +53,7 @@ We consider the problem of estimating using the maximum-likelihood approach the 
 distribution: $p(x, y) = \lambda\eta e ^ {- \lambda x - \eta y}$ supported on $\mathbb{R}^2_+$. We consider a dataset $D = ((x_1, y_1), . . . ,(x_N , y_N ))$ composed of $N$ independent draws from this
 distribution.
 
-\subsection{Task a)}
+\subsection*{Task a)}
 
 \textit{Show that x and y are independent.}\\
 \\
@@ -120,7 +103,7 @@ p(x) \cdot p(y) & = \lambda e ^{-\lambda x }  \cdot \eta e ^{- \eta y} = \lambda
 
 This shows that $x$ and $y$ are independent.
 
-\subsection{Task b)}
+\subsection*{Task b)}
 
 \textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$.}\\
 \\
@@ -155,12 +138,12 @@ This leads to:
 
 \begin{align}
 \begin{aligned}
-\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda)) \\
-					 & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda\eta e ^ {- \lambda x_i - \eta y_i}) \\
-					 & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\eta) + (- \lambda x_i - \eta y_i)) \\
-					 & = - \sum_{i=1}^{n} (\frac{1}{\lambda} - x_i) \\
-					 & = - \sum_{i=1}^{n} (\frac{1}{\lambda})  + \sum_{i=1}^{n}( x_i) \\
-					 & = - (\frac{n}{\lambda})  + \sum_{i=1}^{n}( x_i) \\
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda)) \\
+					 & = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(\lambda\eta e ^ {- \lambda x_i - \eta y_i}) \\
+					 & = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\eta) + (- \lambda x_i - \eta y_i)) \\
+					 & = - \sum_{i=1}^{N} (\frac{1}{\lambda} - x_i) \\
+					 & = - \sum_{i=1}^{N} (\frac{1}{\lambda})  + \sum_{i=1}^{N}( x_i) \\
+					 & = - (\frac{n}{\lambda})  + \sum_{i=1}^{N}( x_i) \\
 \end{aligned}
 \end{align}
 
@@ -168,12 +151,12 @@ Considering the the minimum condition from equation \ref{eq:mincond}, this leads
 
 \begin{align}
 \begin{aligned}
- 			& - (\frac{n}{\lambda})  + \sum_{i=1}^{n}( x_i) 	= 0\\
- \Leftrightarrow  & \lambda =  \frac{n}{\sum_{i=1}^{n}( x_i)}
+ 			& - (\frac{n}{\lambda})  + \sum_{i=1}^{N}( x_i) 	= 0\\
+ \Leftrightarrow  & \lambda =  \frac{n}{\sum_{i=1}^{N}( x_i)}
 \end{aligned}
 \end{align}
 
-\subsection{Task c)}
+\subsection*{Task c)}
 
 \textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$ under the constraint $\eta = \frac{1}{\lambda}$.}\\
 \\
@@ -181,12 +164,12 @@ The solution can be found analogously to Task b) except the adjusted function $p
 
 \begin{align}
 \begin{aligned}
-\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
-					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda\frac{1}{\lambda} e ^ {- \lambda x_i - \frac{1}{\lambda} y_i})\\
-					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\frac{1}{\lambda}) - \lambda x_i - \frac{1}{\lambda} y_i)\\
-					& = - \sum_{i=1}^{n} \frac{1}{\lambda}  - \frac{1}{\lambda} - x_i + \frac{1}{\lambda^2} y_i\\
-					& = - \sum_{i=1}^{n} - x_i + \frac{1}{\lambda^2} y_i\\
-					& = \sum_{i=1}^{n} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i\\
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
+					& = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(\lambda\frac{1}{\lambda} e ^ {- \lambda x_i - \frac{1}{\lambda} y_i})\\
+					& = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln(\frac{1}{\lambda}) - \lambda x_i - \frac{1}{\lambda} y_i)\\
+					& = - \sum_{i=1}^{N} \frac{1}{\lambda}  - \frac{1}{\lambda} - x_i + \frac{1}{\lambda^2} y_i\\
+					& = - \sum_{i=1}^{N} - x_i + \frac{1}{\lambda^2} y_i\\
+					& = \sum_{i=1}^{N} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{N} y_i\\
 \end{aligned}
 \end{align}
 
@@ -194,14 +177,14 @@ Now considering the condition $\nabla_\lambda l(\lambda) \overset{!}{=} 0$:
 
 \begin{align}
 \begin{aligned}
-& \sum_{i=1}^{n} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i = 0 \\
-\Leftrightarrow & \sum_{i=1}^{n} x_i = \frac{1}{\lambda^2} \sum_{i=1}^{n} y_i \\
-\Leftrightarrow & \lambda^2 = \frac{ \sum_{i=1}^{n} y_i }{\sum_{i=1}^{n} x_i} \\
-\Leftrightarrow & \lambda = \pm \sqrt{\frac{ \sum_{i=1}^{n} y_i }{\sum_{i=1}^{n} x_i}} \\
+& \sum_{i=1}^{N} x_i - \frac{1}{\lambda^2} \sum_{i=1}^{N} y_i = 0 \\
+\Leftrightarrow & \sum_{i=1}^{N} x_i = \frac{1}{\lambda^2} \sum_{i=1}^{N} y_i \\
+\Leftrightarrow & \lambda^2 = \frac{ \sum_{i=1}^{N} y_i }{\sum_{i=1}^{N} x_i} \\
+\Leftrightarrow & \lambda = \sqrt{\frac{ \sum_{i=1}^{N} y_i }{\sum_{i=1}^{N} x_i}} \\
 \end{aligned}
 \end{align}
 
-\subsection{Task d)}
+\subsection*{Task d)}
 
 \textit{Derive a maximum likelihood estimator of the parameter $\lambda$ based on $D$ under the constraint $\eta = 1 - \lambda$.}\\
 \\
@@ -209,10 +192,10 @@ The solution can be found analogously to Task b) except the adjusted function $p
 
 \begin{align}
 \begin{aligned}
-\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
-					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} ln(\lambda( 1- \lambda) e ^ {- \lambda x_i - (1- \lambda) y_i})\\
-					& = - \sum_{i=1}^{n} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln( 1- \lambda) - \lambda x_i - (1- \lambda) y_i)\\
-					& = - \sum_{i=1}^{n} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) \\
+\nabla_\lambda l(\lambda) & = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(p((x_i, y_i)|\lambda))\\
+					& = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} ln(\lambda( 1- \lambda) e ^ {- \lambda x_i - (1- \lambda) y_i})\\
+					& = - \sum_{i=1}^{N} \frac{\partial}{\partial \lambda} (ln(\lambda) + ln( 1- \lambda) - \lambda x_i - (1- \lambda) y_i)\\
+					& = - \sum_{i=1}^{N} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) \\
 \end{aligned}
 \end{align}
 
@@ -220,14 +203,32 @@ Now considering the condition $\nabla_\lambda l(\lambda) \overset{!}{=} 0$:
 
 \begin{align}
 \begin{aligned}
-& - \sum_{i=1}^{n} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) = 0 \\
-\Leftrightarrow & - \sum_{i=1}^{n}( y_i - x_i)  - \frac{n}{\lambda} + \frac{n}{1-\lambda} = 0\\
-\Leftrightarrow & \frac{n}{1-\lambda}  - \frac{n}{\lambda} = \sum_{i=1}^{n}( y_i - x_i)\\
-\Leftrightarrow & n \lambda -n(1-\lambda) = \sum_{i=1}^{n}( y_i - x_i) \lambda (1 - \lambda)\\
-\Leftrightarrow & n \lambda -n + n\lambda = \sum_{i=1}^{n}( y_i - x_i) (\lambda - \lambda^2)\\
-\Leftrightarrow & (\sum_{i=1}^{n}( y_i - x_i)) \lambda^2 + (2n - \sum_{i=1}^{n}( y_i - x_i))\lambda - n = 0\\
-\Leftrightarrow & \lambda^2 + \frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{\sum_{i=1}^{n}( y_i - x_i)}\lambda - \frac{n}{\sum_{i=1}^{n}( y_i - x_i)} = 0\\
-\Leftrightarrow & \lambda_{1,2} = - \frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{2 \sum_{i=1}^{n}( y_i - x_i)}\pm \sqrt{(\frac{2n - \sum_{i=1}^{n}( y_i - x_i)}{2 \sum_{i=1}^{n}( y_i - x_i)})^2 +\frac{n}{\sum_{i=1}^{n}( y_i - x_i)}} \\
+& - \sum_{i=1}^{N} ( \frac{1}{\lambda} - \frac{1}{1- \lambda} - x_i + y_i) = 0 \\
+\Leftrightarrow & - \sum_{i=1}^{N}( y_i - x_i)  - \frac{n}{\lambda} + \frac{n}{1-\lambda} = 0\\
+\Leftrightarrow & \frac{n}{1-\lambda}  - \frac{n}{\lambda} = \sum_{i=1}^{N}( y_i - x_i)\\
+\Leftrightarrow & n \lambda -n(1-\lambda) = \sum_{i=1}^{N}( y_i - x_i) \lambda (1 - \lambda)\\
+\Leftrightarrow & n \lambda -n + n\lambda = \sum_{i=1}^{N}( y_i - x_i) (\lambda - \lambda^2)\\
+\Leftrightarrow & (\sum_{i=1}^{N}( y_i - x_i)) \lambda^2 + (2n - \sum_{i=1}^{N}( y_i - x_i))\lambda - n = 0\\
+\Leftrightarrow & \lambda^2 + \frac{2n - \sum_{i=1}^{N}( y_i - x_i)}{\sum_{i=1}^{N}( y_i - x_i)}\lambda - \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} = 0\\
+\Leftrightarrow & \lambda_{1,2} = - \frac{2n - \sum_{i=1}^{N}( y_i - x_i)}{2 \sum_{i=1}^{N}( y_i - x_i)}\\
+		      & ~~~~~~~~\pm \sqrt{(\frac{2n - \sum_{i=1}^{N}( y_i - x_i)}{2 \sum_{i=1}^{N}( y_i - x_i)})^2 +\frac{n}{\sum_{i=1}^{N}( y_i - x_i)}} \\
+\end{aligned}
+\end{align}
+
+\begin{align}
+\begin{aligned}
+\Leftrightarrow & \lambda_{1,2} = - \frac{2n - \sum_{i=1}^{N}( y_i - x_i)}{2 \sum_{i=1}^{N}( y_i - x_i)}\\
+		      & ~~~~~~~~\pm \sqrt{(\frac{2n - \sum_{i=1}^{N}( y_i - x_i)}{2 \sum_{i=1}^{N}( y_i - x_i)})^2 +\frac{n}{\sum_{i=1}^{N}( y_i - x_i)}} \\
+\Leftrightarrow & \lambda_{1,2} = - ( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})\\
+		      & ~~~~~~~~\pm \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})^2 +\frac{n}{\sum_{i=1}^{N}( y_i - x_i)}} \\
+\Leftrightarrow & \lambda_{1,2} = - ( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})\\
+		      & ~~~~~~~~\pm \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)})^2 -  \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} + \frac{1}{4} +\frac{n}{\sum_{i=1}^{N}( y_i - x_i)}} \\
+\Leftrightarrow & \lambda_{1,2} = - ( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})\\
+		      & ~~~~~~~~\pm \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)})^2 + \frac{1}{4}} \\
+\Leftrightarrow & \lambda_{1,2} = - ( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})\\
+		      & ~~~~~~~~\pm \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} + \frac{1}{2})} \cdot \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})} \\
+\Leftrightarrow & \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})}\\
+		      & ~~~~~~~~\cdot \left(- \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} - \frac{1}{2})} \pm \sqrt{( \frac{n}{\sum_{i=1}^{N}( y_i - x_i)} + \frac{1}{2})} \right)\\
 \end{aligned}
 \end{align}
 
@@ -235,14 +236,306 @@ Now considering the condition $\nabla_\lambda l(\lambda) \overset{!}{=} 0$:
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
+\pagebreak
+\section{Linear Regression}
 
-\section{Multiple Linear Regression}
+Consider the linear regression model $y = x^T \beta + \epsilon$, where $x \in \mathbb{R}^d$ are the predictor variables, $y \in \mathbb{R}$ is the response
+variable, $\beta \in \mathbb{R}^d$ are  the  linear  regression  coefficients, and $\epsilon \sim \mathcal{N}(0, \sigma^2)$ is random i.i.d. noise. This  model  can be understood as defining a conditional probability distribution $p(y | x; \beta)$,  parameterized by the linear regression coefficients $\beta$.\\
+\\
+We collect a dataset $\mathcal{D} = ((x_1, y_1), ..., (x_N, y_N))$ of $N$ independent draws of pairs $(x_i, y_i)$. We summarize data into the vector $y = (y_1,...,y_N) \in \mathbb{R}^N$ and the matrix $X = (x_1, ..., x_N) \in \mathbb{R}^{N\times d}$. We would like to learn for this data a good model parameter $\beta$.\\
+\\
+The maximum-likelihood solution for $\beta$ is the parameter for which observed outputs $y_1,...,y_N$ are the most likely under the model's output distribution. It is obtained by solving the optimization problem:
+
+\begin{equation}
+\underset{\beta}{max} \prod_{i=1}^{N} Pr(y = y_i | x = x_i; \beta)
+\end{equation}
+
+and can be shown to have the closed form:
+
+\begin{equation}
+\hat\beta = (X^TX)^{-1}X^Ty
+\end{equation}
+
+\subsection*{Task a)}
+
+\textit{Show that $\hat\beta \sim \mathcal{N}(\beta, \sigma^2(X^TX)^{-1})$, i.e., $\hat\beta$ is Gaussian distributed with mean $\beta$ and covariance matrix $\sigma^2(X^TX)^{-1}$.}\\
+\\
+For our own interest first $\hat\beta$ and $\hat\sigma^2$ are derived. The actual answer to this task's position starts in the subsection after the next subsection (in \textit{Derivation of the distribution of $\hat\beta$ and $\hat\sigma^2$}).
+
+
+\subsubsection*{Derivation of $\hat\beta$ and $\hat\sigma^2$}
+Starting from a conditional probability density function of the dependent variable
+
+\begin{equation}
+p(y_i|X) = \frac{1}{\sqrt{2\pi\sigma}} \cdot exp(- \frac{1}{2} \cdot \frac{(y_i - x_i\beta)^2}{\sigma^2_0})
+\end{equation}
+
+the likelihood function is
+
+\begin{align}
+\begin{aligned}
+p(D|\beta, \sigma^2) &= \prod_{i=1}^{N}p(y_i|X;\beta,\sigma^2) \\
+				&= \frac{1}{(2\pi\sigma^2)^{\frac{N}{2}}} \cdot exp(-\frac{1}{2\sigma^2}\sum_{i=1}^{N}(y_i-x_i\beta)^2)
+\end{aligned}
+\end{align}
+
+This leads to a log likelihood function of
+
+\begin{align}
+\begin{aligned}
+l(\beta, \sigma^2) &= ln (\frac{1}{(2\pi\sigma^2)^{\frac{N}{2}}} \cdot exp(-\frac{1}{2\sigma^2}\sum_{i=1}^{N}(y_i-x_i\beta)^2))\\
+			   &= -\frac{N}{2}ln(2\pi) - \frac{N}{2}ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{N}(y_i - x_i\beta)^2
+\end{aligned}
+\end{align}
+
+Maximizing the log likelihood function $\underset{\beta,\sigma^2}{max}l(\beta, \sigma^2)$ for $\beta$ and $\sigma^2$ finds $\hat\beta$ and $\hat\sigma^2$. The first-order conditions are
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta}l(\beta, \sigma^2) = 0\\
+\frac{\partial}{\partial\sigma^2}l(\beta, \sigma^2) = 0
+\end{aligned}
+\end{align}
+
+For $\nabla_{\beta}$, it is calculated
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta}l(\beta, \sigma^2) &= \nabla_{\beta}( -\frac{N}{2}ln(2\pi) - \frac{N}{2}ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{N}(y_i - x_i\beta)^2)\\
+						 &= \frac{1}{\sigma^2}(\sum_{i=1}^{N}x_i^Ty_i - \sum_{i=1}^{N}x_i^Tx_i\beta)
+\end{aligned}
+\end{align}
+
+which is only equal to zero if
+
+\begin{align}
+\begin{aligned}
+(\sum_{i=1}^{N}x_i^Ty_i - \sum_{i=1}^{N}x_i^Tx_i\beta) = 0
+\end{aligned}
+\end{align}
+
+This leads to 
+
+\begin{align}
+\begin{aligned}
+\hat\beta = \frac{\sum_{i=1}^{N}x_i^Ty_i}{\sum_{i=1}^{N}x_i^Tx_i)} = (X^TX)^{-1}X^Ty
+\end{aligned}
+\end{align}
+
+The partial derivative of the log-likelihood with respect to $\sigma^2$ is
+
+\begin{align}
+\begin{aligned}
+\frac{\partial}{\partial\sigma^2}l(\beta, \sigma^2) &= \frac{\partial}{\partial\sigma^2}( -\frac{N}{2}ln(2\pi) - \frac{N}{2}ln(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{N}(y_i - x_i\beta)^2)\\
+ 									  &= \frac{1}{2\sigma^2}(\frac{1}{\sigma^2}\sum_{i=1}^{N}(y_i-x_i\beta)^2)
+\end{aligned}
+\end{align}
+
+which (assuming $\sigma^2 \not= 0$) is equal to zero only if
+
+\begin{align}
+\begin{aligned}
+\hat\sigma^2 = \frac{1}{N} \sum_{i=1}^{N}(y_i-x_i\hat\beta)^2
+\end{aligned}
+\end{align}
+
+$\hat\beta$ does not depend on $\hat\sigma^2$, the solution is explicit. This proves that $\hat\beta = (X^TX)^{-1}X^Ty$ and $\hat\sigma^2 = \frac{1}{N} \sum_{i=1}^{N}(y_i-x_i\hat\beta)^2$.\\
+
+\subsubsection*{Derivation of the distribution of $\hat\beta$ and $\hat\sigma^2$}
+
+Now it has to be shown that the parameter vector $\left[\hat\beta, \hat\sigma^2\right]^T$ is (asymptotically) normally distributed. Starting from the original conditional probability densitiy function, we consider the score vector $\nabla_{\beta}ln(p(y_i|X))$ (which indicates the sensetivity of a likelihood function) for the first $d$ entries:
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta}ln(p(y_i|X))	&= \nabla_{\beta}(ln(\frac{1}{\sqrt{2\pi\sigma}} \cdot exp(- \frac{1}{2} \cdot \frac{(y_i - x_i\beta)^2}{\sigma^2_0})))\\
+				 	&=  \nabla_{\beta}(-\frac{1}{2}ln((2\pi) - \frac{1}{2}ln(\sigma^2)-\frac{1}{2} \frac{(y_i - x_i \beta)^2}{\sigma^2})\\
+				 	&= \frac{x_i^T(y_i - x_i\beta)}{\sigma^2}
+\end{aligned}
+\end{align}
+
+The (d+1) entry then comes from:
+
+\begin{align}
+\begin{aligned}
+\frac{\partial}{\partial\sigma^2}(ln(p(y_i|X))) &=  \frac{\partial}{\partial\sigma^2}(-\frac{1}{2}ln(2\pi)-\frac{1}{2}ln(\sigma^2) - \frac{1}{2} \frac{(y_i - x_i\beta)^2}{\sigma^2}))\\
+								   &= -\frac{1}{2\sigma^2} + \frac{1}{2} \frac{(y_i - x_i\beta)^2}{(\sigma^2)^2}
+\end{aligned}
+\end{align}
+
+Further the Hessian matrix (matrix of second derivates) can be expressed with:
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta,\sigma^2}^2ln(p(y_i|X))) &=
+\begin{bmatrix}
+\nabla_{\beta}(\nabla_{\beta} ln (p(y_i|X)))					& \nabla_{\beta}(\frac{\partial}{\partial\sigma^2} ln (p(y_i|X)))				\\
+\nabla_{\beta}(\frac{\partial}{\partial\sigma^2} ln (p(y_i|X)))	& \frac{\partial}{\partial\sigma^2}(\frac{\partial}{\partial\sigma^2} ln (p(y_i|X)))	\\
+\end{bmatrix}
+\end{aligned}
+\end{align}
+
+Computing the single entries of the matrix:
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta}(\nabla_{\beta} ln (p(y_i|X)))	 = \nabla_{\beta} (\frac{x_i^T(y_i - x_i\beta)}{\sigma^2}) = - \frac{1}{\sigma^2}x^T_ix_i\\
+\nabla_{\beta}(\frac{\partial}{\partial\sigma^2} ln (p(y_i|X))) = \nabla_{\beta} (-\frac{1}{2\sigma^2} + \frac{1}{2} \frac{(y_i - x_i\beta)^2}{(\sigma^2)^2}) = - \frac{y_i - x_i \beta}{(\sigma^2)^2}x_i\\
+\frac{\partial}{\partial\sigma^2}(\frac{\partial}{\partial\sigma^2} ln (p(y_i|X))) = \frac{\partial}{\partial\sigma^2}(-\frac{1}{2\sigma^2} + \frac{1}{2} \frac{(y_i - x_i\beta)^2}{(\sigma^2)^2}) = \frac{1}{2(\sigma^2)^2} - \frac{(y_i - x_i \beta)^2}{(\sigma^2)^3}
+\end{aligned}
+\end{align}
+
+So we have the following Hessian matrix:
+
+\begin{align}
+\begin{aligned}
+\nabla_{\beta,\sigma^2}^2ln(p(y_i|X))) &=
+\begin{bmatrix}
+- \frac{1}{\sigma^2}x^T_ix_i			& - \frac{y_i - x_i \beta}{(\sigma^2)^2}x_i				\\
+- \frac{y_i - x_i \beta}{(\sigma^2)^2}x_i	& \frac{1}{2(\sigma^2)^2} - \frac{(y_i - x_i \beta)^2}{(\sigma^2)^3}	\\
+\end{bmatrix}
+\end{aligned}
+\end{align}
+
+Unsing (Fisher's) information equality, we have that:
+
+\begin{align}
+\begin{aligned}
+&Var(\nabla_{\beta,\sigma^2}ln(p(y_i|X)))|_{\beta, \sigma^2}\\
+=&-E(\nabla_{\beta,\sigma^2}^2ln(p(y_i|X)))\\
+=&
+\begin{bmatrix}
+E\left[ \frac{1}{\sigma^2}x^T_ix_i\right]			& E\left[ \frac{y_i - x_i \beta}{(\sigma^2)^2}x_i\right]				\\
+E\left[ \frac{y_i - x_i \beta}{(\sigma^2)^2}x_i\right]	& E\left[ - \frac{1}{2(\sigma^2)^2} + \frac{(y_i - x_i \beta)^2}{(\sigma^2)^3}\right]	\\
+\end{bmatrix}\\
+=&
+\begin{bmatrix}
+\frac{1}{\sigma^2}E\left[x^T_ix_i\right]			&  \frac{1}{(\sigma^2)^2}E\left[(y_i - x_i \beta)x_i\right]				\\
+ \frac{1}{(\sigma^2)^2}E\left[(y_i - x_i \beta)x_i\right]	& \frac{1}{(\sigma^2)^3}E\left[(y_i - x_i \beta)^2\right] -  \frac{1}{2(\sigma^2)^2}	\\
+\end{bmatrix}\\
+\end{aligned}
+\end{align}
+
+Looking at that, we have first
+
+\begin{align}
+\begin{aligned}
+E\left[(y_i - x_i\beta)^2\right] = E\left[\epsilon_i^2\right] = Var\left[\epsilon_i\right] = \sigma^2
+\end{aligned}
+\end{align}
+
+and second by the \textit{Law of Iterated Expectations}
+
+\begin{align}
+\begin{aligned}
+E\left[(y_i - x_i\beta)x_i^T\right] &= E\left[E\left[(y_i - x_i\beta)x_i^T|X \right] \right]\\
+						&= E\left[E\left[(y_i - x_i\beta)|X \right] x_i^T \right]\\
+						&= E\left[E\left[\epsilon_i|X \right] x_i^T \right]\\
+						&= E\left[0 x_i^T \right]\\
+						&= 0
+\end{aligned}
+\end{align}
+
+
+This leads to:
+
+\begin{align}
+\begin{aligned}
+&Var(\nabla_{\beta,\sigma^2}ln(p(y_i|X)))|_{\beta, \sigma^2}\\
+=&
+\begin{bmatrix}
+\frac{1}{\sigma^2}E\left[x^T_ix_i\right]			&  \frac{1}{(\sigma^2)^2}E\left[(y_i - x_i \beta)x_i\right]				\\
+ \frac{1}{(\sigma^2)^2}E\left[(y_i - x_i \beta)x_i\right]	& \frac{1}{(\sigma^2)^3}E\left[(y_i - x_i \beta)^2\right] -  \frac{1}{2(\sigma^2)^2}	\\
+\end{bmatrix}\\
+=&
+\begin{bmatrix}
+\frac{1}{\sigma^2}E\left[x^T_ix_i\right]	&  0				\\
+0								& \frac{\sigma^2}{(\sigma^2)^3} -  \frac{1}{2(\sigma^2)^2}	\\
+\end{bmatrix}\\
+=&
+\begin{bmatrix}
+\frac{1}{\sigma^2}E\left[x^T_ix_i\right]	&  0				\\
+0								& \frac{1}{2(\sigma^2)^2}	\\
+\end{bmatrix}\\
+\end{aligned}
+\end{align}
+
+And from this, we get an \textit{asymptotic} covariance matrix of
+
+\begin{align}
+\begin{aligned}
+(Var(\nabla_{\beta,\sigma^2}ln(p(y_i|X)))|_{\beta, \sigma^2})^{-1} =
+\begin{bmatrix}
+\sigma^2E\left[x^T_ix_i\right]^{-1}	&  0				\\
+0							& 2(\sigma^2)^2	\\
+\end{bmatrix}
+\end{aligned}
+\end{align}
+
+This shows that $\left[\hat\beta, \hat\sigma^2\right]^T$ can be approximated by a multivariate normal distribution with $\beta, \sigma^2$ and an asymptotic covariance matrix of \\
+\\
+$
+\begin{bmatrix}
+\sigma^2E\left[x^T_ix_i\right]^{-1}	&  0				\\
+0							& 2(\sigma^2)^2	\\
+\end{bmatrix}
+$
+\\\\
+whereby the very first entry of the matrix states the covariance matrix for $\hat\beta$.
+
+\subsection*{Task b)}
+\textit{Discuss the benefit of knowing the full distribution $\hat\beta$ rather than only the estimate itself. What additional statements about $\beta$ can be made (hint: variable selection)? Assume that $\sigma^2$ is known and does not need to be estimated.}\\
+\\
+With the distribution of the parameter, it is possible to perform a Bayesian Estimation which takes into account the specific distribution. This way, better predictions can be made with less training datapoints. Even if the available datapoints do not represent the underlying distribution sufficiently well, the predictions can get better since the beliefs of how the data should look like, are considered. For dimensional reduction (i.e. reducing the amount of variables while keeping the highest possible accuracy), it is possible to determine highly correlated variables for elimination which will affect the final model the least.
+
+\subsection*{Task c)}
+\textit{Assume we have measured a new datapoint, $x_*$. We use our regression model to predict the response for $x_*:\hat y_* = x_*^T\hat\beta$. Derive the distribution of $\hat y_*$.}\\
+\\
+After computing $\hat\beta = (X^TX)^{-1}X^Ty$ we can state a vector $\hat y = X\hat\beta$ with expected value and variance ($I$ is the identity matrix):
+
+\begin{align}
+\begin{aligned}
+\hat y &= \hat\beta X = X (X^TX)^{-1}X^Ty\\
+E(\hat y) &= X\beta\\
+V(\hat y) &= X (X^TX)^{-1}X^T \sigma^2 I (X (X^TX)^{-1}X^T)^T = \sigma^2 X (X^TX)^{-1}X^T
+\end{aligned}
+\end{align}
+
+The residuals with expected value and variance can be found with
+
+\begin{align}
+\begin{aligned}
+e &= y - \hat y = (I - (X (X^TX)^{-1}X^T))y\\
+E(e) &=(I - (X (X^TX)^{-1}X^T))X\beta = 0\\
+V(e) &= (I - (X (X^TX)^{-1}X^T))\sigma^2 I (I - (X (X^TX)^{-1}X^T))^T \\
+       &= \sigma^2(I - (X (X^TX)^{-1}X^T))
+\end{aligned}
+\end{align}
+
+So having the vector of fitted values $\hat y$ and the residuals we obtain the prodicted value of $y$ when $x=x_*$:
+
+\begin{align}
+\begin{aligned}
+\hat y_* &= x_*^T \hat\beta\\
+E(\hat y_*) &= x_*^T\hat \beta\\
+V(\hat y_*) &= \sigma^2 x_*^T (X^TX)^{-1}x_*
+\end{aligned}
+\end{align}
+
+So $y_*$ is Gaussian distributed.
+
+\subsection*{Task d)}
+\textit{Discuss the benefit of also knowing that distribution in an application of your choice.}\\
+\\
+In general, it allows the prediction of how frequently several responses will occur, without having information about datapoints. For example, it is thought of a use case for a cinema. It might be interesting to predict the number of viewers who will see a movie, by the characteristics of the movie. This information can be used to choose a cinema hall with the right size or to employ enough staff to serve the viewers. Knowing the distribution of viewers for a certain period of time can help to predict the number of viewers for a movie without knowing the movie's characteristics.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3
 %----------------------------------------------------------------------------------------
 
 \section{Programming}
+
+
+The programming part is handeled in the seperate file \textit{sheet02.ipynb}.
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY

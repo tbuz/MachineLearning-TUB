@@ -1,0 +1,199 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 3} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Maximum Likelihood vs. Bayes}
+
+\textit{An unfair coin is tossed seven times and the event (head or tail) is recorded at each iteration.  The observed sequence of events is:}
+
+\begin{equation}
+\mathcal{D} = (x_1, x_2, ... , x_7) = (\text{head, head, tail, tail, head, head, head})
+\end{equation}
+
+\textit{We assume that all tosses $x_1, x_2, ...$ have been generated independently following the Bernoulli probability distribution}
+
+\begin{equation}
+P(x|\theta) = \left\{
+\begin{array}{ll} \theta 	& \text{if} ~ x = \text{head}\\
+  			   1 - \theta &  \text{if} ~ x = \text{tail}
+\end{array}\right.
+\end{equation}
+
+where $\theta \in [0,1]$ is an unknown parameter.
+
+\subsection*{Task a)}
+
+\textit{State the likelihood function $P(\mathcal{D}|\theta)$ that depends on the parameter $\theta$}.
+
+The likelihood function can be calculated with
+
+\begin{align}
+\begin{aligned}
+P(\mathcal{D}|\theta) = \prod_{i = 1}^7(P(x_i|\theta) = \theta^5 \cdot (1 - \theta)^2 
+\end{aligned}
+\end{align}
+
+\subsection*{Task b)}
+
+\textit{Compute the maximum likelihood solution $\hat\theta$, and evaluate for this parameter the probability that the next two tosses are "head", that is, evaluate:}
+
+\begin{equation}
+P(x_8 = \text{head}, x_9 = \text{head} | \hat\theta)
+\end{equation}
+
+The maximum likelihood estimate is $\hat\theta^{ML} = arg \underset{\theta}{max}P(\mathcal{D}|\theta)$ . To find the maximum the maximum likelihood function is derivated:
+
+\begin{align}
+\begin{aligned}
+\frac{\partial P(\mathcal{D}|\theta)}{\partial \theta} &= \frac{\partial}{\partial \theta} \theta^5 \cdot (1 - \theta)^2\\
+									    &= 5 \cdot \theta^4 \cdot (1-\theta)^2 + \theta^5 \cdot (-1) \cdot 2 \cdot (1-\theta)\\
+									    &= 5 \cdot \theta^4 \cdot (1 - 2\theta + \theta^2) - 2\theta^5 \cdot (1-\theta)\\
+									    &= 5 \theta^4 - 10\theta^5 + 5\theta^6 - 2\theta^5 + 2\theta^6\\
+									    &= 7\theta^6 - 12 \theta^5 + 5 \theta^4
+\end{aligned}
+\end{align}
+
+The derivation has to be zero to find a maximum:
+
+\begin{align}\label{eq:condmaximum}
+\begin{aligned}
+				&\frac{\partial P(\mathcal{D}|\theta)}{\partial \theta} &\overset{!}{=} 0\\
+\Leftrightarrow	~~	& 7\theta^6 - 12 \theta^5 + 5 \theta^4 &= 0\\
+\Leftrightarrow	~~	& 7\theta^6 - 12 \theta^5 + 5 \theta^4 &= 0\\
+\Leftrightarrow	~~	& \theta^4(7\theta^2 - 12 \theta + 5 \theta) &= 0\\
+\Leftrightarrow	~~	& \theta^2 - \frac{12}{7} \theta + \frac{5}{7} \theta &= 0\\
+\Leftrightarrow	~~	& \theta_{1,2} = \frac{6}{7} \pm \sqrt{\frac{36}{49} - \frac{35}{49}} \\
+\Leftrightarrow	~~	& \theta_{1,2} = \frac{6}{7} \pm \frac{1}{7} \\
+\Leftarrow	~~	& \theta_{1} = \frac{5}{7} ~~ \text{and} ~~ \theta_{2} =1 \\
+\end{aligned}
+\end{align}
+
+From the fourth line of equation \ref{eq:condmaximum}, $\theta_0 = 0$ could be solution. Further the possible solutions $ \theta_{1} = \frac{5}{7}$ and $\theta_{2} =1$. Taking a look a t the second derivation:
+
+\begin{align}
+\begin{aligned}
+\frac{\partial^2 P(\mathcal{D}|\theta)}{\partial \theta \partial \theta} = 42\theta^5 - 60 \theta^4 + 20 \theta^3
+\end{aligned}
+\end{align}
+
+For $\theta_0 = 0$ the second derivation is also zero. At first the fifth derivation is not zero and thus, $\theta_0 = 0$ is a turning point. For $\theta_1 = \frac{5}{7}$ the second derivtaion is negative, so  $\theta_1 = \frac{5}{7}$ is a maximum. For $\theta_2 = 1$ the second derivtaion is positive,  $\theta_2$ is a minimum. This leads to $\hat\theta = \frac{5}{7}$.\\
+\\
+The coin tosses are independent, so $P(x_8 = \text{head}, x_9 = \text{head} | \hat\theta) = P(x_8 = \text{head}|\hat\theta) \cdot P(x_9 =\text{head}|\hat\theta)$. Thus:
+
+\begin{equation}
+P(x_8 = \text{head}, x_9 = \text{head} | \hat\theta) = \hat\theta^2 = \frac{25}{49}
+\end{equation}
+
+\subsection*{Task c)}
+
+\textit{We now adopt a Bayesian view on this problem, where we assume a prior distribution for the parameter $\theta$ defined as:}
+
+\begin{equation}
+p(\theta) = \left\{
+\begin{array}{ll} 1 	& \text{if} ~ 0 \leq \theta \leq 1\\
+  			 0	&  \text{else}
+\end{array}\right.
+\end{equation}
+
+\textit{Compute the posterior distribution $p(\theta|\mathcal{D})$, and evaluate the probability that the next two tosses are head, that is,}
+
+\begin{equation}\label{eq:doubleheadtossint}
+\int P(x_8 = \text{head}, x_9 = \text{head} | \theta) p(\theta|\mathcal{D}) d\theta
+\end{equation}
+
+First  $p(\theta|\mathcal{D})$ is calculated:
+
+\begin{align}
+\begin{aligned}
+p(\theta|\mathcal{D}) & = \frac{p(\mathcal{D}|\theta)p(\theta)}{p(\mathcal{D})}\\
+				& = \frac{p(\mathcal{D}|\theta)p(\theta)}{\int p(\mathcal{D}|\theta)p(\theta)d\theta}\\
+				& = \frac{\theta^5 \cdot (1 - \theta)^2 \cdot 1}{\int \theta^5 \cdot (1 - \theta)^2 \cdot 1 d\theta}\\
+				& = \frac{\theta^5 - 2 \theta ^6 + \theta^7}{\int \theta^5 - 2 \theta ^6 + \theta^7 d\theta}\\
+				& = \frac{\theta^5 - 2 \theta ^6 + \theta^7}{\left[\frac{1}{6}\theta^6 - \frac{2}{7} \theta ^7 + \frac{1}{8}\theta^8\right]_0^1}\\
+				& = \frac{\theta^5 - 2 \theta ^6 + \theta^7}{\frac{1}{168}}\\
+				& = 168(\theta^5 - 2 \theta ^6 + \theta^7)\\
+\end{aligned}
+\end{align}
+\newpage
+Inserted into equation \ref{eq:doubleheadtossint}:
+
+\begin{align}
+\begin{aligned}
+	& \int P(x_8 = \text{head}, x_9 = \text{head} | \theta) p(\theta|\mathcal{D}) d\theta\\
+=	& \int \theta^2 \cdot 168(\theta^5 - 2 \theta ^6 + \theta^7) d\theta\\
+=	& \int 168(\theta^7 - 2 \theta ^8 + \theta^9) d\theta\\
+=	& \left[ 168 \cdot(\frac{1}{8}\theta^8 - \frac{2}{9} \theta ^9 + \frac{1}{10}\theta^{10}) \right]_0^1\\
+=	& 168 \cdot (\frac{1}{8} - \frac{2}{9} + \frac{1}{10})\\
+=	& \frac{7}{15}
+\end{aligned}
+\end{align}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Convergence of Bayes Parameter Estimation}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Programming}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\bibliographystyle{apalike}
+
+%\bibliography{sample}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document}

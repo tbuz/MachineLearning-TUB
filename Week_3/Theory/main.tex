@@ -186,7 +186,7 @@ Inserted into equation \ref{eq:doubleheadtossint}:
 Show that $ \sigma^2_n \leq \min \left (\frac{n}{\sigma^2},\sigma^2_0 \right )$.
 \subsubsection*{Assumption (I)}
 From Chapter 3.4.1 in Duda et al we know, that $n > 0$.\\
-Furthermore we have obviously $\sigma^2 > 0, ~\sigma^2_0 > 0$ and $\sigma^2_n > 0$, since these are squares of the standard deviation. Because the $\sigma$'s are quotients in the given formula, we know, that they must be bigger than $0$.\\
+Furthermore we have obviously $\sigma^2 > 0, ~\sigma^2_0 > 0$ and $\sigma^2_n > 0$, since these are squares of the standard deviation. Because the $\sigma$'s are quotients in the given formula, we know that they must be bigger than $0$.\\
 \subsubsection*{Proof}
 On the one hand we have
 \begin{align*}
@@ -209,6 +209,56 @@ So we have shown, that $\sigma^2_n \leq \frac{\sigma^2}{n}$ and $\sigma^2_n \leq
 $$
 \sigma^2_n \leq \min \left (\frac{n}{\sigma^2},\sigma^2_0 \right ).
 $$
+\hspace*{\fill}$\Box$\\
+\subsection*{(b)}
+Show that $\min(\hat{\mu}_n,\mu_0) \leq \mu_n \leq \max(\hat{\mu}_n,\mu_0)$\\ \\
+In the following proof a reference to (I) refers to assumption (I) from exercise 2 (a).\\
+\subsubsection*{Proof}
+\underline{Case 1: $\mu_n = 0$}\\
+In this case we have 
+$$ \frac{\mu_n}{\sigma^2_n} = 0 = \frac{n}{\sigma^2}\hat{\mu}_n + \frac{1}{\sigma^2_0}\mu_0 $$
+With (I) we have  $\frac{1}{\sigma^2_0} > 0$ and $\frac{n}{\sigma^2} > 0$ and since the sum in the last part of the equation equals $0$ it follows, that 
+$$ \min(\hat{\mu}_n,\mu_0) \leq 0  \leq \max(\hat{\mu}_n,\mu_0) \stackrel{\mu_n = 0}{\Leftrightarrow} \min(\hat{\mu}_n,\mu_0) \leq \mu_n \leq  \max(\hat{\mu}_n,\mu_0)$$
+\underline{Case 2: $\mu_n \neq 0$}\\
+We have
+\begin{align*}
+	             &\frac{\mu_n}{\sigma^2_n} = \frac{n}{\sigma^2}\hat{\mu}_n + \frac{1}{\sigma^2_0}\mu_0&\\
+\Leftrightarrow~~&\frac{1}{\sigma^2_n} = \frac{n}{\sigma^2} \cdot \frac{\hat{\mu}_n}{\mu_n} + \frac{1}{\sigma^2_0} \cdot \frac{\mu_0}{\mu_n}&\\
+\Leftrightarrow~~&\frac{n}{\sigma^2} + \frac{1}{\sigma^2_0} = \frac{n}{\sigma^2} \cdot \frac{\hat{\mu}_n}{\mu_n} + \frac{1}{\sigma^2_0} \cdot \frac{\mu_0}{\mu_n}& \text{, because } \frac{1}{\sigma^2_n} = \frac{n}{\sigma^2} + \frac{1}{\sigma^2_0}\\
+\Leftrightarrow~~&\frac{n}{\sigma^2} - \frac{n}{\sigma^2} \cdot \frac{\hat{\mu}_n}{\mu_n}  =   \frac{1}{\sigma^2_0} \cdot \frac{\mu_0}{\mu_n} - \frac{1}{\sigma^2_0}& \\
+\Leftrightarrow~~&\frac{n}{\sigma^2} \cdot \frac{\mu_n - \hat{\mu}_n}{\mu_n}  =   \frac{1}{\sigma^2_0} \cdot \frac{\mu_0 - \mu_n}{\mu_n}& \\
+\Leftrightarrow~~&\frac{n\sigma^2_0}{\sigma^2} \cdot \frac{\mu_n - \hat{\mu}_n}{\mu_n}  =   \frac{\mu_0 - \mu_n}{\mu_n}& 
+\end{align*}  
+\underline{Case 2.1: $\mu_n - \hat{\mu}_n = 0$}\\
+Then we have
+$$\mu_n = \hat{\mu}_n$$ 
+and 
+$$0 = \frac{\mu_0 - \mu_n}{\mu_n} \Leftrightarrow  \mu_0 = \mu_n$$
+and it follows
+$$(\mu_0 = \mu_n = \hat{\mu}_n) \Rightarrow (\mu_0 \leq \mu_n \leq \hat{\mu}_n) \Rightarrow (\min(\hat{\mu}_n,\mu_0) \leq \mu_n \leq  \max(\hat{\mu}_n,\mu_0))$$ 
+\underline{Case 2.2: $\mu_n - \hat{\mu}_n \neq 0$}\\
+Then we have
+\begin{align*}
+&\frac{n\sigma^2_0}{\sigma^2} \cdot \frac{\mu_n - \hat{\mu}_n}{\mu_n}  =   \frac{\mu_0 - \mu_n}{\mu_n}& \\
+\Leftrightarrow~~&\frac{n\sigma^2_0}{\sigma^2} =   \frac{\mu_0 - \mu_n}{\mu_n - \hat{\mu}_n}& 
+\end{align*}
+With (I) we get
+$0 \leq \frac{n\sigma^2_0}{\sigma^2}$ 
+which gives us
+$$0 \leq \frac{\mu_0 - \mu_n}{\mu_n - \hat{\mu}_n}$$
+To fullfill this inequation must either  be 
+$$(0 \leq \mu_0 - \mu_n) \wedge (0 \leq \mu_n - \hat{\mu}_n)$$ 
+or 
+$$(0 \geq \mu_0 - \mu_n) \wedge (0 \geq \mu_n - \hat{\mu}_n)$$
+In the first case we have
+\begin{align*}
+                 &(0 \leq \mu_0 - \mu_n) \wedge (0 \leq \mu_n - \hat{\mu}_n)&\\
+\Leftrightarrow~~&(\mu_n \leq \mu_0 ) \wedge (\hat{\mu}_n \leq \mu_n )&\\
+\Leftrightarrow~~&(\hat{\mu}_n \leq \mu_n ) \wedge (\mu_n \leq \mu_0 )&\\
+\Leftrightarrow~~&\hat{\mu}_n \leq \mu_n \leq \mu_0 &\\
+\Leftrightarrow~~& \min(\hat{\mu}_n,\mu_0) \leq \mu_n \leq  \max(\hat{\mu}_n,\mu_0)& 
+\end{align*}
+The second case is analogous to the first.\\
 \hspace*{\fill}$\Box$
 \section{Programming}
 

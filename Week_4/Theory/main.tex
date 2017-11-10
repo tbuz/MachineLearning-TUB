@@ -1,0 +1,132 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+\newcommand{\PartDiv}[1]{\frac{\partial}{\partial #1}}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 3} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
+
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Lagrange Multipliers}
+\subsection*{(a)}
+Find the parameter $\theta$ that minimizes $J(\theta)$ subject to the constraint $\theta^T b = 0$.\\ \\
+We have
+$$
+\mathcal{L} = \sum \limits _{k=1}^n ||\boldsymbol{\theta} - \boldsymbol{x}_k||^2 + \lambda \boldsymbol{\theta}^T\boldsymbol{b}
+$$
+From this we get
+\begin{align}
+&0 = \PartDiv{\boldsymbol{\theta}} \mathcal{L}&\\
+\Leftrightarrow~~&0 = \sum \limits _{k=1}^n 2(\boldsymbol{\theta} - \boldsymbol{x}_k) + \lambda \boldsymbol{b}&\\ 
+\Leftrightarrow~~&0= \boldsymbol{\theta} - \overline{\boldsymbol{x}} + \frac{\lambda}{2n} \boldsymbol{b}&\\
+\Leftrightarrow~~&\boldsymbol{\theta} = \overline{\boldsymbol{x}} - \frac{\lambda}{2n} \boldsymbol{b}&
+\end{align}
+and
+\begin{align}
+&0 = \PartDiv{\boldsymbol{\lambda}} \mathcal{L}&\\
+\Leftrightarrow~~&0 =  \boldsymbol{\theta}^T \boldsymbol{b}&\\ 
+\stackrel{(4)}{\Leftrightarrow}~~&0= (\overline{\boldsymbol{x}} - \frac{\lambda}{2n} \boldsymbol{b})^T \boldsymbol{b}&\\
+\Leftrightarrow~~&0= \overline{\boldsymbol{x}}^T\boldsymbol{b} - \frac{\lambda}{2n} \boldsymbol{b}^T \boldsymbol{b}&\\
+\stackrel{\boldsymbol{b} \neq \boldsymbol{0}}{\Leftrightarrow}~~&\lambda = 2n \frac {\overline{\boldsymbol{x}}^T\boldsymbol{b}}{\boldsymbol{b}^T \boldsymbol{b}}&\\
+\end{align}
+With (4) and (10) we finally get
+$$
+\boldsymbol{\theta} = \overline{\boldsymbol{x}} - \frac {\overline{\boldsymbol{x}}^T\boldsymbol{b}}{\boldsymbol{b}^T \boldsymbol{b}} \boldsymbol{b} 
+=\overline{\boldsymbol{x}} - \frac {\overline{\boldsymbol{x}}^T\boldsymbol{b}}{||\boldsymbol{b}||} \cdot \frac{\boldsymbol{b}}{||\boldsymbol{b}||}  
+$$
+\subsubsection*{Geometric interpretation}
+$\frac {\overline{\boldsymbol{x}}^T\boldsymbol{b}}{||\boldsymbol{b}||}$ discribes a projection from $\boldsymbol{\overline{x}}$ on $\boldsymbol{b}$.
+$\frac {\overline{\boldsymbol{x}}^T\boldsymbol{b}}{||\boldsymbol{b}||}\cdot \frac{\boldsymbol{b}}{||\boldsymbol{b}||}$ gives us the projection point. 
+So this constraint gives us a minimum at the shifted emperical mean in opposite direction of $\boldsymbol{b}$ by the value of the projection.
+\subsection*{(b)}
+Find the parameter $\theta$ that minimizes $J(\theta)$ subject to the constraint $||\boldsymbol{\theta} - \boldsymbol{c}||^2 = 1 $.\\ \\
+We have
+$$
+\mathcal{L} = \sum \limits _{k=1}^n ||\boldsymbol{\theta} - \boldsymbol{x}_k||^2 + \lambda ||\boldsymbol{\theta} - \boldsymbol{c}||^2 - \lambda
+$$
+From this we get
+\begin{align}
+                 &0 = \PartDiv{\theta} \mathcal{L}&\\
+\Leftrightarrow~~&0 = \sum \limits _{k=1}^n 2\boldsymbol{\theta} - 2 \boldsymbol{x}_k + 2\lambda (\boldsymbol{\theta} - \boldsymbol{c})&\\
+\Leftrightarrow~~&0 = n\boldsymbol{\theta} - \sum \limits _{k=1}^n  \boldsymbol{x}_k + \lambda \boldsymbol{\theta} - \lambda  \boldsymbol{c}&\\
+\Leftrightarrow~~&0 = \boldsymbol{\theta} - \boldsymbol{\overline{x}} + \frac{\lambda}{n} \boldsymbol{\theta} - \frac{\lambda}{n}  \boldsymbol{c}&\\
+\Leftrightarrow~~&\frac{n + \lambda}{n} \boldsymbol{\theta}  = \boldsymbol{\overline{x}} + \frac{\lambda}{n}  \boldsymbol{c}&\\
+\Leftrightarrow~~&\boldsymbol{\theta}  = \frac{n}{n + \lambda}\boldsymbol{\overline{x}} + \frac{\lambda}{n + \lambda}  \boldsymbol{c}&
+\end{align}
+and
+\begin{align}
+                 &0 = \PartDiv{\lambda} \mathcal{L}&\\
+\Leftrightarrow~~&0 = ||\boldsymbol{\theta} - \boldsymbol{c}||^2 - 1&\\
+\Leftrightarrow~~&0 = ||\boldsymbol{\theta} - \boldsymbol{c}||^2 - 1& \text{eq (16)}\\            
+\Leftrightarrow~~&0 = ||\frac{n}{n + \lambda}\boldsymbol{\overline{x}} + \frac{\lambda}{n + \lambda}  \boldsymbol{c} - \boldsymbol{c}||^2 - 1& \\
+\Leftrightarrow~~&0 = ||\frac{n}{n + \lambda}\boldsymbol{\overline{x}} - \frac{n }{n + \lambda}  \boldsymbol{c} ||^2 - 1& \\
+\Leftrightarrow~~&1 = \frac{n^2}{(n + \lambda})^2 ||\boldsymbol{\overline{x}} - \boldsymbol{c} ||^2&\\
+\Leftrightarrow~~&(n + \lambda)^2  = n^2||\boldsymbol{\overline{x}} - \boldsymbol{c} ||^2&\\ 
+\Rightarrow~~& \lambda  = n \cdot (||\boldsymbol{\overline{x}} - \boldsymbol{c} || - 1 )&
+\end{align}
+With Eq (16) and Eq (24) we get
+\begin{align*}
+&\boldsymbol{\theta}= \frac{n}{n + n ||\boldsymbol{\overline{x}} - \boldsymbol{c} || - n }\boldsymbol{\overline{x}} + \frac{n ||\boldsymbol{\overline{x}} - \boldsymbol{c} || - n}{n + n ||\boldsymbol{\overline{x}} - \boldsymbol{c} || - n}  \boldsymbol{c}&&\\
+&~~= \frac{1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}\boldsymbol{\overline{x}} + \frac{||\boldsymbol{\overline{x}} - \boldsymbol{c} || - 1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}  \boldsymbol{c}&&\\
+&~~= \frac{1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}\boldsymbol{\overline{x}}  - \frac{1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}  \boldsymbol{c} + c&&\\
+&~~= \frac{1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}(\boldsymbol{\overline{x}}  - \boldsymbol{c}) + c&&\\
+\end{align*}
+\subsubsection*{Geometric interpretation}
+\section*{Bounds on Eigenvalues }
+\section{Programming}
+See next page.
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+%\bibliographystyle{apalike}
+
+%\bibliography{sample}
+
+%----------------------------------------------------------------------------------------
+
+
+\end{document}

@@ -116,7 +116,26 @@ With Eq (16) and Eq (24) we get
 \end{align*}
 \subsubsection*{Geometric interpretation}
 \section*{Bounds on Eigenvalues }
-\section{Programming}
+\subsection*{(a)}
+Show that $\sum \limits _{i=1}^d S_{ii} \geq \lambda_1$.
+\subsubsection*{Assumptions}
+Since $S$ is a scatter matrix we can infer:
+\begin{itemize}
+	\item[(I)] $S$ is symmetrical 
+	\item[(II)] $S$ is positive semi definite
+\end{itemize}
+\subsubsection*{Proof}
+We have
+\begin{align*}
+&\lambda_1 \leq \sum \limits _{i=1}^d S_{ii} = Tr(S) \stackrel{(I)}{=}
+\sum \limits _{i=1}^d \lambda_i& \\
+\Leftrightarrow~~& 0 \leq  \sum \limits _{i=2}^d \lambda_i&
+\end{align*}
+which is fullfilled because with (II) we get $\forall i \in \{1,...,d\} : \lambda_i \geq 0$.
+\subsection*{(b)}
+\subsection*{(c)}
+\subsection*{(d)}
+\section*{Programming}
 See next page.
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY

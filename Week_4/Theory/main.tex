@@ -115,6 +115,9 @@ With Eq (16) and Eq (24) we get
 &~~= \frac{1}{||\boldsymbol{\overline{x}} - \boldsymbol{c} ||}(\boldsymbol{\overline{x}}  - \boldsymbol{c}) + c&&\\
 \end{align*}
 \subsubsection*{Geometrical interpretation}
+\subsubsection*{Geometrical interpretation}
+The derived solution is as expected dependent on the vector $c$. In addition to the first case, $c$ has now not only additive impact but also anti-proportional, multiplicative impact
+on $\overline{x}$. The presented solution is the optimum of $J$ considering the constraint $g$. At this point the contour line of J is tangential to the line describing g.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
@@ -155,13 +158,41 @@ This bound becomes tight when the maximum variance lies on an elementary feature
 \section{Iterative PCA}
 
 \subsection*{(a)}
+\begin{centering}
+$\frac{\partial J(v)}{\partial v} = \frac{\partial J (\omega)}{\partial \omega} \cdot \frac{\partial \omega}{\partial v}$ \\
+$\frac{\partial J (\omega)}{\partial \omega} = \frac{S^2 \omega}{||S \omega||} - S \omega $\\
+$\omega = S^{-\frac{1}{2}} v$ \\
+$\frac{\partial \omega}{\partial v} = S^{-\frac{1}{2}}$ \\
+$\frac{\partial J (v)}{\partial v} = S^{-\frac{1}{2}} (\frac{S^2 \omega}{||S \omega||} - S \omega) $\\
+\end{centering}
 
+
+
+Inserting the partial derivative of $J$ (in respect to $v$) into the iteration step equation, we can write:
+
+\begin{centering}
+$S^{\frac{1}{2}} w{t+1} = S^{\frac{1}{2}} w_t + \gamma(S^{-\frac{1}{2}}(\frac{S^2 w}{||S w||} - S w)$ \\
+$w_{t+1} = w_t + \gamma(S^{-\frac{1}{2}}(\frac{S^2 w}{||S w||} - S w)$
+
+\end{centering}
+
+Setting $\gamma=1$ yields: $w_{t+1} = \frac{Sw_t}{||Sw_t||}$
 
 \subsection*{(b)}
 
-
-\section*{Programming}
-See next page.
+We first set the cost function's gradient equal to zero and try to find the $w*$ that satisfies that equation: \\
+\begin{centering}
+ 
+$\frac{\partial J (w)}{\partial w} = \frac{S^2 w}{||Sw||} - Sw = 0$ \\
+$\frac{Sw}{||Sw||} = w$ \\
+$Sw = ||Sw|| w$
+ 
+\end{centering}
+ 
+As $||Sw||$ is a scaling factor of the vector $w$. we can apply the Euclidian norm on both sides and keep $||Sw||$ as a multiplicative factor: \\
+$||Sw|| = ||Sw||\ ||w||$ \\
+   
+Obviously, this will only hold if $||w|| = 1$.
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------

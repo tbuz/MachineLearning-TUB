@@ -128,6 +128,7 @@ Since $S$ is a scatter matrix we can infer:
 \begin{itemize}
 	\item[(I)] $S$ is symmetrical 
 	\item[(II)] $S$ is positive semi definite
+	\item[(III)] The trace elements are positive, because we are using a correlation matrix
 \end{itemize}
 \subsubsection*{Proof}
 We have
@@ -137,9 +138,15 @@ We have
 \Leftrightarrow~~& 0 \leq  \sum \limits _{i=2}^d \lambda_i&
 \end{align*}
 which is fullfilled because with (II) we get $\forall i \in \{1,...,d\} : \lambda_i \geq 0$.
+
 \subsection*{(b)}
+The bound becomes tight if the sum $\sum_{i=2}^d \lambda_i$ vanishes. This is the case if the data can be explained solely in terms of the first PC.
+
 \subsection*{(c)}
+In PCA, we maximize $\omega^T S \omega$ subject to the unit vector constraint. If we assume that the eigenvector $\omega_1$ is filled with zeroes at position $k$ (with $k$ corresponding to the elementary feature with largest variance), the first eigenvalue is then given by $\lambda_1=1\cdot var(X_k) = S_{kk} = max_{i=1}^d SS_{ii}$ (tight case). By using this method, if we get any other $\omega_1$ that combines multiple dimensions, $\lambda_1 \geq var(X_k) \geq S_{kk} = max_{i=1}^d SS_{ii}$ will hold instead.
+
 \subsection*{(d)}
+This bound becomes tight when the maximum variance lies on an elementary feature of the data, which means along one of the dimensions.
 
 
 %----------------------------------------------------------------------------------------

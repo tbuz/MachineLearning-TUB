@@ -1,0 +1,156 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+\newcommand{\PartDiv}[1]{\frac{\partial}{\partial #1}}
+\allowdisplaybreaks
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 5} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
+
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section*{Exercise 1}
+We are searching for 
+$$
+\theta^{\text{new}} = \text{argmax}_{\theta} Q(\theta,\theta^{old})
+$$
+We have\\
+\begin{equation}
+P(Z = heads | \theta) = \lambda \text{, } P(Z = tails | \theta) = 1 - \lambda
+\end{equation}
+and for $\mathbf{X} =  (X_1,...,X_m)$\\
+\begin{equation}
+P(X_i = heads| Z = heads , \theta) = p_1 \text{, } P(X_i = tails| Z = heads , \theta) = 1- p_1
+\end{equation}
+\begin{equation}
+P(X_i = heads| Z = tails, \theta) = p_2\text{, }P(X_i = tails| Z = tails, \theta) = 1- p_2
+\end{equation}
+For $x = (x^{(1)},...,x^{(N)}) \text{ and }z = (z^{(1)},...,z^{(N)})$ we have:
+\begin{equation}
+P(\mathcal{X} = x, \mathcal{Z} = z | \theta) =  \prod \limits _{i=1}^N P(Z = z^{(i)} | \theta) \prod \limits _{j=1}^m P(X_j = x_j^{(i)} | Z = z^{(i)}, \theta)
+\end{equation}
+With this we get (*):
+\begin{align*}
+Q(\theta,\theta^{old})& = \sum \limits _{z \in \{h, t\}^N} \underbrace{P(\mathcal{Z} = z | \mathcal{X} = x,\theta^{old})}_{:=q(z)}\log P(\mathcal{X} = x, \mathcal{Z} = z | \theta)&\\
+& = \sum \limits _{z \in \{h, t\}^N} q(z)\log P(\mathcal{X} = x, \mathcal{Z} = z | \theta)&\\
+& \stackrel{(4)}{=} \sum \limits _{z \in \{h, t\}^N} q(z)\log \left [ \prod \limits _{i=1}^N P(Z = z^{(i)} | \theta) \prod \limits _{j=1}^m P(X_j = x_j^{(i)} | Z = z^{(i)}, \theta) \right ]&\\
+& \stackrel{(1)}{=} \sum \limits _{z \in \{h, t\}^N} q(z)\log \left [ 
+\lambda^{a_z} (1  - \lambda)^{N - a_z} \prod \limits _{i=1}^N \prod \limits _{j=1}^m P(X_j = x_j^{(i)} | Z = z^{(i)}, \theta) \right ]&\\
+& \stackrel{(2),(3)}{=} \sum \limits _{z \in \{h, t\}^N} q(z)\log [ 
+\lambda^{a_z} (1  - \lambda)^{N - a_z} p_1^{b_z}(1 - p_1)^{a_z \cdot m - b_z} p_2^{c_z}(1 - p_2)^{(N - a_z) \cdot m - c_z} ]&
+\end{align*}
+Where 
+\begin{itemize}
+	\item $a_z$ is the amount of $z^{(i)} = h$ for a specific $z \in \{h,t\}, ~i \in \{1,...,N\}$
+	\item $b_z$ is the amount of $x^{(i)}_{j} = h,~j \in \{1,...,m\}$ with corresponding $z^{(i)} = h$ 
+	\item $c_z$ is the amount of $x^{(i)}_{j} = h,~j \in \{1,...,m\}$ with corresponding $z^{(i)} = t$ 
+\end{itemize}
+\ \\
+We should also highlight, that $q(z)$ is completely known, since\\
+$$
+q(z) 
+= P(\mathcal{Z} = z | \mathcal{X} = x,\theta^{old})
+= \frac{P(\mathcal{Z} = z , \mathcal{X} = x|\theta^{old})}{P(\mathcal{X} = x|\theta^{old})}
+= \frac{P(\mathcal{Z} = z , \mathcal{X} = x|\theta^{old})}{\sum \limits _{z \in \{h, t\}^N}P(\mathcal{Z} = z , \mathcal{X} = x|\theta^{old})}
+$$
+which can be calculated using $(1) - (4)$.\\ \\
+\subsection*{Calculation of $\theta^{\text{new}} = (\hat{\lambda},\hat{p}_1,\hat{p}_2)$}
+\underline{Calculation of $\hat{\lambda}$:}
+\begin{align*}
+\frac{\partial}{\partial \lambda}Q(\theta,\theta^{old})& \stackrel{(*)}{=}  \frac{\partial}{\partial \lambda} \sum \limits _{z \in \{h, t\}^N} q(z)\log [ 
+\lambda^{a_z} (1  - \lambda)^{N - a_z} p_1^{b_z}(1 - p_1)^{a_z \cdot m - b_z} p_2^{c_z}(1 - p_2)^{(N - a_z) \cdot m - c_z} ]&\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \frac{\partial}{\partial \lambda} \left [ a_z \cdot \log( 
+\lambda) + (N - a_z)\log(1  - \lambda) \right ] \\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z)\left( \frac{a_z}{\lambda} - \frac{N - a_z}{1  - \lambda}  \right )\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \frac{a_z   - a_z\lambda - N \lambda  + a_z \lambda }{\lambda (1  - \lambda)}  \\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \frac{a_z   - N \lambda }{\lambda (1  - \lambda)}\\
+\end{align*}
+and we get:
+\begin{align*}
+                 &0 =  \frac{\partial}{\partial \lambda}Q(\theta,\theta^{old}) &\\
+\Leftrightarrow ~~&0 = \sum \limits _{z \in \{h, t\}^N} q(z)\left( \frac{a_z   - N \hat{\lambda} }{\hat{\lambda} (1  - \hat{\lambda})}  \right )\\  
+\Leftrightarrow ~~&\sum \limits _{z \in \{h, t\}^N} q(z) N \hat{\lambda} = \sum \limits _{z \in \{h, t\}^N} q(z)a_z \\
+\Leftrightarrow ~~&\hat{\lambda} = \frac{1}{N} \cdot \frac{\sum \limits _{z \in \{h, t\}^N} q(z)a_z}{\sum \limits _{z \in \{h, t\}^N} q(z)} \\   
+\end{align*}
+\underline{Calculation of $\hat{p}_1$:}
+\begin{align*}
+\frac{\partial}{\partial p_1}Q(\theta,\theta^{old})& \stackrel{(*)}{=}  \frac{\partial}{\partial p_1} \sum \limits _{z \in \{h, t\}^N} q(z)\log [ 
+\lambda^{a_z} (1  - \lambda)^{N - a_z} p_1^{b_z}(1 - p_1)^{a_z \cdot m - b_z} p_2^{c_z}(1 - p_2)^{(N - a_z) \cdot m - c_z} ]&\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \frac{\partial}{\partial p_1} [ b_z \cdot \log( 
+p_1) + (a_z \cdot m - b_z)\log(1  - p_1) ]\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \left ( \frac{b_z }{p_1}  - \frac{a_z \cdot m - b_z}{1- p_1} \right )\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{b_z - b_z p_1 - a_z m p_1 + b_z p_1}{p_1(1- p_1)}\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{b_z - a_z m p_1 }{p_1(1- p_1)}\\
+\end{align*}
+and we get:\\
+\begin{align*}
+                 &0 =  \frac{\partial}{\partial p_1}Q(\theta,\theta^{old}) &\\
+\Leftrightarrow ~~&0 = \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{b_z - a_z m \hat{p}_1}{\hat{p}_1(1- \hat{p}_1)}\\
+\Leftrightarrow ~~&\sum \limits _{z \in \{h, t\}^N} q(z) a_z m \hat{p}_1= \sum \limits _{z \in \{h, t\}^N} q(z) b_z\\
+\Leftrightarrow ~~&  \hat{p}_1= \frac{1}{m} \cdot \frac{ \sum \limits _{z \in \{h, t\}^N} q(z) b_z}{\sum \limits _{z \in \{h, t\}^N} q(z) a_z}\\
+\end{align*}
+\underline{Calculation of $\hat{p_2}$}
+\begin{align*}
+\frac{\partial}{\partial p_2}Q(\theta,\theta^{old})& \stackrel{(*)}{=}  \frac{\partial}{\partial p_2} \sum \limits _{z \in \{h, t\}^N} q(z)\log [ 
+\lambda^{a_z} (1  - \lambda)^{N - a_z} p_1^{b_z}(1 - p_1)^{a_z \cdot m - b_z} p_2^{c_z}(1 - p_2)^{(N - a_z) \cdot m - c_z} ]&\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \frac{\partial}{\partial p_2} [ c_z \cdot \log( 
+p_2) + ((N - a_z) \cdot m - c_z)\log(1  - p_2) ]\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z) \left ( \frac{c_z }{p_2} - \frac{ (N - a_z) \cdot m - c_z}{1  - p_2} \right ) \\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{c_z  - c_zp_2 - (N - a_z)mp_2 + c_z p_2}{p_2(1  - p_2)}\\
+&=  \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{c_z  - (N - a_z)mp_2}{p_2(1  - p_2)}\\
+\end{align*}
+and we get:
+\begin{align*}
+                  &0 =  \frac{\partial}{\partial p_2}Q(\theta,\theta^{old}) &\\
+\Leftrightarrow ~~&0 = \sum \limits _{z \in \{h, t\}^N} q(z)  \frac{c_z  - (N - a_z)m \hat{p}_2}{\hat{p}_2(1  - \hat{p}_2)}&\\
+\Leftrightarrow ~~&
+\sum \limits _{z \in \{h, t\}^N} q(z)(N - a_z)m \hat{p}_2 = \sum \limits _{z \in \{h, t\}^N} q(z)c_z  &\\
+\Leftrightarrow ~~&
+ \hat{p}_2 =\frac{1}{m} \cdot \frac{\sum \limits _{z \in \{h, t\}^N} q(z)c_z}{\sum \limits _{z \in \{h, t\}^N} q(z)(N - a_z)}  &\\
+\end{align*}
+\section*{Exercise 2}
+See next page
+\end{document}

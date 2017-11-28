@@ -1,0 +1,97 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+\newcommand{\PartDiv}[1]{\frac{\partial}{\partial #1}}
+\allowdisplaybreaks
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 7} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
+
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section*{Exercise 1}
+
+\subsection*{Bias and Variance of Mean Estimators}
+
+\subsubsection*{(a)}
+We are using the natural estimator: $\hat{\mu} = \frac{1}{N} \sum_{i=1}^N X_i$ \\
+
+This means that $\mathbb{E}[\hat{\mu}]=\frac{1}{N}\ \mathbb{E}[\sum_{i=1}^N X_i]=\frac{1}{N}\ N \cdot \mu=\mu$. \\
+
+$Bias(\hat{\mu})= \mathbb{E}[\hat{\mu} - \mu] = \mathbb{E}[\hat{\mu}] - \mu = \mu - \mu = 0$ \\
+
+$Var(\hat{\mu})= Var(\frac{1}{N} \sum_{i=0}^N X_i) = \frac{1}{N} Var(\sum_{i=0}^N X_i)= \frac{1}{N} Var(\mathbb{E}[X]) = \frac{1}{N} Var(\mu) = \frac{\sigma^2}{N}$\\
+
+$MSE(\hat{\mu})= Bias(\hat{\mu})^2 + Var(\hat{\mu}) = \frac{\sigma^2}{N}$
+
+\subsubsection*{(b)}
+
+In this task, $\hat{\mu} = 0$. \\
+
+This means that $\mathbb{E}[\hat{\mu}]=\mathbb{E}[0]=0$ \\
+
+$Bias(\hat{\mu})= \mathbb{E}[\hat{\mu} - \mu] = \mathbb{E}[0 - \mu] = \mathbb{E}[0] - \mu = 0 - \mu = - \mu$ \\
+
+Per definition, the variance of a constant is zero, as a constant does not change. Proof:
+
+$Var(\hat{\mu})= \mathbb{E}[(\hat{\mu} - \mathbb{E}[\hat{\mu}])^2] = \mathbb{E}[(0 - 0)^2] = 0$\\
+
+$MSE(\hat{\mu})=(-\mu)^2 + 0$
+
+\section*{Exercise 2}
+\subsection*{Bias-Variance Decomposition for Regression}
+\subsubsection*{(a)}
+
+
+\subsubsection*{(b)}
+
+
+\section*{Exercise 3}
+\subsection*{Bias-Variance Decomposition for Regression}
+
+
+\end{document}

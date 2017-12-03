@@ -86,9 +86,31 @@ $MSE(\hat{\mu})=(-\mu)^2 + 0$
 \subsection*{Bias-Variance Decomposition for Regression}
 \subsubsection*{(a)}
 
-
-\subsubsection*{(b)}
-
+\textit{Prove} the bias-variance decomposition \\
+\begin{equation}
+\begin{aligned}
+Error(\hat{f}(x)) &= Bias (\hat{f}(x))^2 + Var(\hat{f}(x))
+\end{aligned}
+\end{equation}
+where the mean squared error, bias and variance are given by
+\begin{equation}
+\begin{aligned}
+Error(\hat{f}(x))&=\mathbb{E}[(\hat{f}(x)-f(x))^2] \\
+Bias(\hat{f}(x))&=\mathbb{E}[\hat{f}(x)-f(x)]\\
+Var(\hat{f}(x))&=\mathbb{E}[(\hat{f}(x)-\mathbb{E}[\hat{f}(x)])^2]\\
+\end{aligned}
+\end{equation}
+Proposition: $Error(\hat{f}(x)) = Bias (\hat{f}(x))^2 + Var(\hat{f}(x))$\\
+\begin{equation}
+\begin{aligned}
+proof:Error(\hat{f}(x)) &= \mathbb{E}[(\hat{f}(x)-f(x))^2] \\
+&= \mathbb{E}[\hat{f}(x)^2] - 2f(x)\mathbb{E}[\hat{f}(x)]+f(x)^2 ~~~~~~~~~~~~~~~ | - 2(\mathbb{E}[\hat{f}(x)])^2+2 (\mathbb{E}[\hat{f}(x)])^2 \\
+&= \mathbb{E}[\hat{f}(x)^2] - 2(\mathbb{E}[\hat{f}(x)])^2+ (\mathbb{E}[\hat{f}(x)])^2 + (\mathbb{E}[\hat{f}(x)])^2 - 2f(x)\mathbb{E}[\hat{f}(x)]+f(x)^2 \\
+&= \mathbb{E}[\hat{f}(x)^2] - 2\mathbb{E}[\hat{f}(x)~(\mathbb{E}[\hat{f}(x)])]+ \mathbb{E}(\mathbb{E}[\hat{f}(x)])^2 + (\mathbb{E}[\hat{f}(x)]- f(x))^2\\
+&= \mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2] + (\mathbb{E}[\hat{f}(x)]- f(x))^2\\
+&=Bias(\hat{f}(x))^2 + Var(\hat{f}(x))\\
+\end{aligned}
+\end{equation}
 
 \section*{Exercise 3}
 \subsection*{Bias-Variance Decomposition for Regression}

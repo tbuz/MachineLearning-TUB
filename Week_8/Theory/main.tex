@@ -110,29 +110,29 @@ k(x_i,x_j) &=\sum_{i=1}^n \sum_{j=1}^n c_i c_j k(x_i,x_j) \\
 \subsection*{b)}
 
 \subsubsection*{i}
-Given $k_1$ and $k_2$ are Mercer kernels, show that:
+Let $k_1$ and $k_2$ be two Mercer kernels. Show that:
 \begin{equation}
     k(x, x') = k_1(x, x') + k_2(x, x')
 \end{equation}
-is a Mercer kernel.
+is also a Mercer kernel.
 
 \begin{align}
     \sum_{i=1}^d \sum_{j=1}^d k(x_i, x_j') &= k_1(x, x') + k_2(x, x') \\
     &= \sum_{i=1}^d \sum_{j=1}^d (k_1(x_i, x_j') + k_2(x_i, x_j'))\\
     &= \sum_{i=1}^d \sum_{j=1}^d k_1(x_i, x_j') + \sum_{i=1}^d \sum_{j=1}^d  k_2(x_i, x_j')
 \end{align}
-As both terms are are non-negative (Mercer kernels), the sums is also non-negative.
-\hfill $\square$
+As both terms are non-negative (Mercer kernels), the sums is also non-negative.
+
 \subsubsection*{ii}
 
-Given $k_1$ and $k_2$ are Mercer kernels, show that:
+Let $k_1$ and $k_2$ be two Mercer kernels. Show that:
 \begin{equation}
     k(x, x') = k_1(x, x') \cdot k_2(x, x')
 \end{equation}
-is a Mercer kernel.
+is also a Mercer kernel.
 
 
-From the \emph{representer theorem}, we know that every kernel has a corresponding
+The \emph{representer theorem} says, that every kernel has a corresponding
 scalar product.
 Let $\phi : \R^d \mapsto \R^a $ be the feature maps such that $k_1(x, x') = \langle{}\phi(x),\phi(x')\rangle{}$ and
 for $k_2$ let  $\psi : \R^d \mapsto \R^b$ be such that $k_2(x, x') = \langle{}\psi(x),\psi(x')\rangle{}$.
@@ -145,22 +145,21 @@ for $k_2$ let  $\psi : \R^d \mapsto \R^b$ be such that $k_2(x, x') = \langle{}\p
     = & \sum_{i=1}^a \sum_{j=1}^b \phi_i(x) \phi_i(x') \cdot  \psi_j(x) \psi_j(x')\\
     = & \sum_{i=1}^a \sum_{j=1}^b \phi_i(x)  \psi_j(x) \phi_i(x') \psi_j(x')
 \end{align}
-Now we define another feature maps
+Now let us define another feature map
 $\chi(x) : \R^d \mapsto \R^{a \times b}$ to be $\chi(x) = \phi(x)^T \psi(x)$.
 Note that $\chi_{ij}(x) = \phi_i(x) \psi_j(x)$.
 \begin{align}
     = & \sum_{i=1}^a \sum_{j=1}^b \chi_{ij}(x)  \chi_{ij}(x') \\
     = & \chi(x)^T  \chi(x')
 \end{align}
-The product of two Mercer kernels can be rewritten as a scalar product of
-the feature map $\chi$. Therefore the product must also be a Mercer kernel.
-\hfill $\square$
+The product of two Mercer kernel can be rewritten as a scalar product of
+the feature map $\chi$. So the resulting product must be also a Mercer kernel.
 
 \subsection*{c)}
 
 Show that $ k(x, x') = (\langle{}x, x'\rangle{} + \nu)^l$ is a Mercer kernel, where $\nu \in \R_+$.
 
-We can rewrite $k(x, x')$ as:
+It can be rewritten as $k(x, x')$:
 
 \begin{align}
     & k_\nu(x, x') = \nu \\
@@ -168,8 +167,7 @@ We can rewrite $k(x, x')$ as:
     & k_+(x, x') = k_s(x, x') + k_\nu(x, x') \\
     & k(x, x') = \prod^l k_+(x, x')
 \end{align}
-Therefore, it $k$ is also a Mercer kernel. \hfill $\square$
-\\
+Therefore $k$ is also a Mercer kernel.
 
 
 \subsection*{d)}
@@ -178,7 +176,7 @@ k(x,x') = \exp{}(- \frac{||x-x'||^2}{2\sigma^2}) \\
 = \exp{}(-\frac{||x||^2 - 2\langle{}x',x\rangle{} + ||x'||^2}{2\sigma^2}) \\
 = \exp{}(-\frac{||x||^2}{2\sigma^2}) \cdot \exp{}(-\frac{||x'||^2}{2\sigma^2}) \cdot \exp{}(\frac{2\langle{}x',x\rangle{}}{2\sigma^2}) \\ 
 \end{gather*}
-Notice $\exp{}(-\frac{||x||^2}{2\sigma^2}) \cdot \exp{}(-\frac{||x'||^2}{2\sigma^2}) = f(x)\cdot f(x')$ and $\frac{2\langle{}x',x\rangle{}}{2\sigma^2}$ are Mercer kernels (from a,b,c). Now it is left to show that $\exp{}(k(x,x'))$ is a Mercer kernel if k is a Mercer kernel.
+Remember $\exp{}(-\frac{||x||^2}{2\sigma^2}) \cdot \exp{}(-\frac{||x'||^2}{2\sigma^2}) = f(x)\cdot f(x')$ and $\frac{2\langle{}x',x\rangle{}}{2\sigma^2}$ are Mercer kernels (from a,b,c). Now we have to show that $\exp{}(k(x,x'))$ is a Mercer kernel, if k is a Mercer kernel.
 \begin{gather*}
 \exp{}(k(x,x')) = \lim\limits_{i \rightarrow \infty}{(1 + k(x,x') + \frac{k(x,x')^2}{2} + \frac{k(x,x')^3}{6} + ... + \frac{k(x,x')^i}{i!})}
 \end{gather*}
@@ -191,7 +189,7 @@ From a),b),c) we know this must also be a Mercer kernel and hence our Gaussian k
 \subsection*{The Feature Map}
 
 \subsection*{a)}
-Show:
+Show that the following expression is correct:
 \begin{equation}
     \langle{}\phi(x), \phi(y)\rangle{}~= \left(\sum_{i=1}^2 x_i y_i \right)^2
 \end{equation}
@@ -199,7 +197,7 @@ Show:
     \left(\sum_{i=1}^2 x_i y_i \right)^2 &= \left(x_1 y_1 + x_2 y_2 \right)^2 = \\
     & = x_1^2 y_1^2 + 2 x_1 y_1 x_2 y_2 + x_2^2 y_2^2  \\
 \end{align}
-Using the feature maps we get:
+Using the feature map we get:
 \begin{align}
     \langle{}\phi(x), \phi(y)\rangle{}~ &= \langle{}
         \begin{pmatrix}x_1^2 \\ \sqrt{2} x_1 x_2 \\ x_2^2 \end{pmatrix},
@@ -210,7 +208,7 @@ As both results are the same, $\phi$ and $\R^3$ are possible choices for feature
 and feature space.
 
 \subsection*{b)}
-We are not sure what an explicit description of an image is, so we gave a mathematical description of the image set. 
+We gave a mathematical description of the image set, because we are not realy sure what an explicit description of an image is.
 \subsubsection*{i}
 \begin{gather*}
 \left\{ \left( \begin{array}{c}cos^2 \Theta \\ \sqrt{2} cos(\Theta) sin(\Theta) \\ sin^2 \Theta \end{array} \right); \ \Theta \in [0, 2\pi] \right\}
@@ -220,9 +218,9 @@ We are not sure what an explicit description of an image is, so we gave a mathem
 \left\{ \left( \begin{array}{c}t^2 \\ \sqrt{2} t s \\ s^2 \end{array} \right); \ t,s \in \R \right\} 
 \end{gather*}
 \subsection*{c)}
-We take 3 linear independent points from our image in b) i:
+We take three linear independent points from our image of b) i:
 $\left( \begin{array}{c}1 \\ 0 \\ 0 \end{array} \right), \left( \begin{array}{c}0 \\ 0 \\ 1 \end{array} \right), \left( \begin{array}{c} \frac{1}{2} \\ \frac{\sqrt{2}}{2} \\ \frac{1}{2} \end{array} \right)$ 
-With this we can describe the plane parametrically as $\left\{ \left( \begin{array}{c}1 \\ 0 \\ 0 \end{array} \right) + r \cdot \left( \begin{array}{c}-1 \\ 0 \\ 1 \end{array} \right) + s \cdot \left( \begin{array}{c} - \frac{1}{2} \\ \frac{\sqrt{2}}{2} \\ \frac{1}{2} \end{array} \right) ;\ r,s \in \R \right\}$  
+With the solution of the previous image, we can describe the plane parametrically as $\left\{ \left( \begin{array}{c}1 \\ 0 \\ 0 \end{array} \right) + r \cdot \left( \begin{array}{c}-1 \\ 0 \\ 1 \end{array} \right) + s \cdot \left( \begin{array}{c} - \frac{1}{2} \\ \frac{\sqrt{2}}{2} \\ \frac{1}{2} \end{array} \right) ;\ r,s \in \R \right\}$  
 \subsection*{d)}
 $\left( \begin{array}{c}-1 \\ 0 \\0 \end{array} \right)$ is not in $\varphi (A)$, since $t^2$ can not take negative values for $t \in \R$
 \end{document}

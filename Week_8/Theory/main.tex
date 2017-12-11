@@ -70,7 +70,7 @@ Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
 
 \subsection*{a)}
 
-\subsubsection*{i}
+\subsubsection*{i.}
 
 Show that
 $k(x,x') = a \ \ \ \ \ a \in \mathbb{R}^+$ is a Mercer kernel:\\
@@ -85,7 +85,7 @@ k(x_i,x_j) &= \sum_{i=1}^n \sum_{j=1}^n c_i c_j k(x_i,x_j) \\
 
 
 
-\subsubsection*{ii}
+\subsubsection*{ii.}
 Show that
 $k(x,x') = \langle x,x' \rangle$ is a Mercer kernel:\\
 \begin{align}
@@ -96,7 +96,7 @@ k(x_i,x_j) &=\sum_{i=1}^n \sum_{j=1}^n c_i c_j k(x_i,x_j) \\
 &= \vec{v}^T \vec{v} = || \vec{v} ||^2 \geq 0
 \end{align}
 
-\subsubsection*{iii}
+\subsubsection*{iii.}
 Show that $
 k(x,x') = f(x)\cdot f(x')$, where $f:\mathbb{R}^d~\rightarrow~\mathbb{R}$ is an arbitrary continuous function, is a Mercer kernel:\\
 \begin{align}
@@ -109,8 +109,9 @@ k(x_i,x_j) &=\sum_{i=1}^n \sum_{j=1}^n c_i c_j k(x_i,x_j) \\
 
 \subsection*{b)}
 
-\subsubsection*{i}
+\subsubsection*{i.}
 Let $k_1$ and $k_2$ be two Mercer kernels. Show that:
+
 \begin{equation}
     k(x, x') = k_1(x, x') + k_2(x, x')
 \end{equation}
@@ -121,9 +122,10 @@ is also a Mercer kernel.
     &= \sum_{i=1}^d \sum_{j=1}^d (k_1(x_i, x_j') + k_2(x_i, x_j'))\\
     &= \sum_{i=1}^d \sum_{j=1}^d k_1(x_i, x_j') + \sum_{i=1}^d \sum_{j=1}^d  k_2(x_i, x_j')
 \end{align}
+
 As both terms are non-negative (Mercer kernels), the sums is also non-negative.
 
-\subsubsection*{ii}
+\subsubsection*{ii.}
 
 Let $k_1$ and $k_2$ be two Mercer kernels. Show that:
 \begin{equation}
@@ -170,6 +172,7 @@ It can be rewritten as $k(x, x')$:
 Therefore $k$ is also a Mercer kernel.
 
 
+
 \subsection*{d)}
 \begin{gather*}
 k(x,x') = \exp{}(- \frac{||x-x'||^2}{2\sigma^2}) \\
@@ -209,11 +212,11 @@ and feature space.
 
 \subsection*{b)}
 We gave a mathematical description of the image set, because we are not realy sure what an explicit description of an image is.
-\subsubsection*{i}
+\subsubsection*{i.}
 \begin{gather*}
 \left\{ \left( \begin{array}{c}cos^2 \Theta \\ \sqrt{2} cos(\Theta) sin(\Theta) \\ sin^2 \Theta \end{array} \right); \ \Theta \in [0, 2\pi] \right\}
 \end{gather*}
-\subsubsection*{ii}
+\subsubsection*{ii.}
 \begin{gather*}
 \left\{ \left( \begin{array}{c}t^2 \\ \sqrt{2} t s \\ s^2 \end{array} \right); \ t,s \in \R \right\} 
 \end{gather*}
@@ -223,7 +226,4 @@ $\left( \begin{array}{c}1 \\ 0 \\ 0 \end{array} \right), \left( \begin{array}{c}
 With the solution of the previous image, we can describe the plane parametrically as $\left\{ \left( \begin{array}{c}1 \\ 0 \\ 0 \end{array} \right) + r \cdot \left( \begin{array}{c}-1 \\ 0 \\ 1 \end{array} \right) + s \cdot \left( \begin{array}{c} - \frac{1}{2} \\ \frac{\sqrt{2}}{2} \\ \frac{1}{2} \end{array} \right) ;\ r,s \in \R \right\}$  
 \subsection*{d)}
 $\left( \begin{array}{c}-1 \\ 0 \\0 \end{array} \right)$ is not in $\varphi (A)$, since $t^2$ can not take negative values for $t \in \R$
-\end{document}
-
-
 \end{document}

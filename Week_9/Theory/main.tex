@@ -1,0 +1,135 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass{article}
+
+\usepackage[version=3]{mhchem} % Package for chemical equation typesetting
+\usepackage{siunitx} % Provides the \SI{}{} and \si{} command for typesetting SI units
+\usepackage{graphicx} % Required for the inclusion of images
+\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{amsmath} % Required for some math elements 
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
+
+%\usepackage{times} % Uncomment to use the Times New Roman font
+
+\newcommand{\PartDiv}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\F}[0]{\mathbb{F}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\Z}[0]{\mathbb{Z}}
+\newcommand{\Q}[0]{\mathbb{Q}}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\C}[0]{\mathbb{C}}
+\newcommand{\B}[0]{\mathbb{B}}
+\newcommand{\im}[0]{\mathit{i}}
+\newcommand{\uber}[2]{{{#1} \choose {#2}}}
+\newcommand{\vect}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand{\norm}[1]{\left\lvert #1 \right\rvert}
+\allowdisplaybreaks
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{Machine Learning 1 \\ Exercise 9} % Title
+
+\author{Group: BSSBCH} % Author name
+
+\date{\today} % Date for the report
+
+
+\begin{document}
+
+\maketitle % Insert the title, author and date
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+Matthias Bigalke, 339547, maku@win.tu-berlin.de \\
+Tolga Buz, 346836, buz\_tolga@yahoo.de \\
+Alejandro Hernandez, 395678, alejandrohernandezmunuera@gmail.com \\
+Aitor Palacios Cuesta, 396276, aitor.palacioscuesta@campus.tu-berlin.de \\
+Christof Schubert, 344450, christof.schubert@campus.tu-berlin.de \\
+Daniel Steinhaus, 342563, dany.steinhaus@googlemail.com\\
+\noindent\rule[0.5ex]{\linewidth}{1pt}
+% If you wish to include an abstract, uncomment the lines below
+% \begin{abstract}
+% Abstract text
+% \end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section*{Exercise 1}
+
+\subsection*{The Dual SVM}
+
+\subsection*{a)}
+
+Lagrange function $\Lambda(w, \theta, \alpha)$ for the hard margin SVM: \\
+\begin{align}
+    \Lambda(w,\theta ,\alpha) = \frac{1}{2} ||w||^2 - \sum_{i=1}^N \alpha_i(y_i(w^T \Phi(x_i) + \theta)-1)
+\end{align}
+
+\subsection*{b)}
+The Lagrange dual:
+\begin{align}
+    \nabla_w\Lambda(w,\theta,\alpha)=w-\sum_{i=1}^N \alpha_i y_i \Phi(x_i) \stackrel{!}{=} 0\\
+    \Longleftrightarrow w = \sum_{i=1}^N \alpha_i y_i \Phi(x_i) ~~~~~~ \\
+    \nabla_\theta \Lambda(w,\theta,\alpha) = - \sum_{i=1}^N \alpha_i y_i \stackrel{!}{=} 0
+\end{align}
+
+Substituting $w = \sum_{i=1}^N \alpha_i y_i \Phi(x_i)$ into equation (1):
+\begin{align}
+    \Lambda(w,\theta,\alpha) = \frac{1}{2} \bigg|\bigg|{\sum_{i=1}^N \alpha_i y_i \Phi(x_i)}\bigg|\bigg|^2 - \sum_{i=1}^N \alpha_i y_i[\sum_{i=1}^N \alpha_i y_i]^T \cdot \Phi(x_i) - \sum_{i=1}^N \alpha_i y_i \theta + \sum_{i=1}^N \alpha_i \\
+    = -\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j k(x_i, x_j) - \theta \sum_{i=1}^N \alpha_i y_i + \sum_{i=1}^N \alpha_i ~~~~~~~~~~~~~~~
+\end{align}
+
+Using $\sum_{j=1}^N \alpha_i y_i = 0$: 
+\begin{align}
+    \tilde{\Lambda}(\alpha) = - \frac{1}{2}  \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j k(x_i, x_j) + \sum_{i=1}^N \alpha_i
+\end{align}
+
+Following the constraint from (4):
+\begin{align}
+    \sum_{i=1}^N \alpha_i y_i \stackrel{!}{=} 0
+\end{align}
+
+And all $\alpha$ must be positive, thus:
+\begin{align}
+    \alpha_i \geq 0 \ \forall i \in 1, \dots, N
+\end{align}
+
+This shows the dual problem, for which the Lagrange function $\tilde{\Lambda}$ is maximized w.r.t. $\alpha$. \\
+
+In the next step, we can show how a solution of the dual problem can be used to solve the primal problem. $\alpha^\ast$ denotes the optimal solutions of $\alpha$. Using (3):
+\begin{align}
+    w^\ast = \sum_{i=1}^N \alpha_i^\ast y_i \Phi(x_i)
+\end{align}
+
+To obtain $b^\ast$, we use the fact that for any support vector $s$ the hyperplane equation must be equal to 1:
+\begin{align}
+    y_s \bigg(\sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg) + \theta^\ast = 1 \\
+    \Longleftrightarrow \theta^\ast = y_s - \bigg( \sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg)
+\end{align}
+
+\subsection*{c)}
+
+\section*{Exercise 2}
+
+\subsection*{SVMs and Quadratic Programming}
+
+\subsection*{a)}
+
+
+\section*{Exercise 3}
+
+\subsection*{Programming}
+
+Please see the other upload for our solution.
+
+\end{document}

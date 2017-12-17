@@ -78,15 +78,15 @@ Lagrange function $\Lambda(w, \theta, \alpha)$ for the hard margin SVM: \\
 \subsection*{b)}
 The Lagrange dual:
 \begin{align}
-    \nabla_w\Lambda(w,\theta,\alpha)=w-\sum_{i=1}^N \alpha_i y_i \Phi(x_i) \stackrel{!}{=} 0\\
-    \Longleftrightarrow w = \sum_{i=1}^N \alpha_i y_i \Phi(x_i) ~~~~~~ \\
-    \nabla_\theta \Lambda(w,\theta,\alpha) = - \sum_{i=1}^N \alpha_i y_i \stackrel{!}{=} 0
+    \nabla_w\Lambda(w,\theta,\alpha)&=w-\sum_{i=1}^N \alpha_i y_i \Phi(x_i) \stackrel{!}{=} 0\\
+    \Longleftrightarrow w &= \sum_{i=1}^N \alpha_i y_i \Phi(x_i) ~~~~~~ \\
+    \nabla_\theta \Lambda(w,\theta,\alpha) &= - \sum_{i=1}^N \alpha_i y_i \stackrel{!}{=} 0
 \end{align}
 
 Substituting $w = \sum_{i=1}^N \alpha_i y_i \Phi(x_i)$ into equation (1):
 \begin{align}
-    \Lambda(w,\theta,\alpha) = \frac{1}{2} \bigg|\bigg|{\sum_{i=1}^N \alpha_i y_i \Phi(x_i)}\bigg|\bigg|^2 - \sum_{i=1}^N \alpha_i y_i[\sum_{i=1}^N \alpha_i y_i]^T \cdot \Phi(x_i) - \sum_{i=1}^N \alpha_i y_i \theta + \sum_{i=1}^N \alpha_i \\
-    = -\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j k(x_i, x_j) - \theta \sum_{i=1}^N \alpha_i y_i + \sum_{i=1}^N \alpha_i ~~~~~~~~~~~~~~~
+    \Lambda(w,\theta,\alpha) &= \frac{1}{2} \bigg|\bigg|{\sum_{i=1}^N \alpha_i y_i \Phi(x_i)}\bigg|\bigg|^2 - \sum_{i=1}^N \alpha_i y_i[\sum_{i=1}^N \alpha_i y_i]^T \cdot \Phi(x_i) - \sum_{i=1}^N \alpha_i y_i \theta + \sum_{i=1}^N \alpha_i \\
+    &= -\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j k(x_i, x_j) - \theta \sum_{i=1}^N \alpha_i y_i + \sum_{i=1}^N \alpha_i ~~~~~~~~~~~~~~~
 \end{align}
 
 Using $\sum_{j=1}^N \alpha_i y_i = 0$: 
@@ -113,19 +113,43 @@ In the next step, we can show how a solution of the dual problem can be used to 
 
 To obtain $b^\ast$, we use the fact that for any support vector $s$ the hyperplane equation must be equal to 1:
 \begin{align}
-    y_s \bigg(\sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg) + \theta^\ast = 1 \\
-    \Longleftrightarrow \theta^\ast = y_s - \bigg( \sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg)
+    &y_s \bigg(\sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg) + \theta^\ast = 1 \\
+    \Longleftrightarrow &\theta^\ast = y_s - \bigg( \sum_{i=1}^N \alpha^\ast y_i k(x_i, s) \bigg)
 \end{align}
 
 \subsection*{c)}
+We substitute the optimal values $w^\ast$ and $\theta^\ast$
+into the denition of the hyperplane $w^T\Phi(x)+ \theta$, to classify a new data point $x$:
+\begin{align}
+&\bigg(\sum \limits _{i=1}^{N}\alpha_i^\ast y_i \Phi(x_i)\bigg)^T\cdot\Phi(x)+\theta^\ast\\
+\Longleftrightarrow &\sum \limits _{i=1}^{N}\alpha_i^\ast y_i \Phi(x_i)^T\cdot\Phi(x)+\theta^\ast\\
+\Longleftrightarrow &\sum \limits _{i=1}^{N}\alpha_i^\ast y_i k(x_i,x)+\theta^\ast
+\end{align}
 
 \section*{Exercise 2}
 
 \subsection*{SVMs and Quadratic Programming}
 
 \subsection*{a)}
-
-
+The task is to convert minimization problem:
+\begin{align}
+&\underset{\alpha}{\text{min}}~\bigg[\sum \limits _{i=1}^{N}\alpha_i-\frac{1}{2}\sum \limits _{i=1}^{N}\sum \limits _{j=1}^{N}\alpha_i\alpha_jy_iy_jk(x_i,x_j)\bigg]\\
+s.t.~&\alpha_i\geq 0~ \forall_i\\
+s.t.~&\sum \limits _{i=1}^{N}\alpha_iy_i=0
+\end{align}
+into the following form:
+\begin{align}
+\underset{x}{\text{min}}~&\bigg[\frac{1}{2}\vec{x}^T\cdot P \cdot \vec{x}+\vec{q}^T\cdot \vec{x} \bigg]\\
+s.t.~(G\cdot\vec{x})_i&=\sum \limits _{i=1}^{N}G_{ij}x_j \leq h_i ~~ \forall_i\\
+s.t.~A\cdot\vec{x}&=\vec{b}~~.
+\end{align}
+To do so we choose the following values:
+\begin{align}
+&\vec{\alpha} \rightarrow \vec{x}\\
+&P_{ij} = -y_iy_jk(x_i,x_j) ~~ and ~~ q_i=1 ~~\forall_i\\
+&\vec{h}=0~~and ~~G=-I~~(the~negative~identity~matrix)\\
+&\vec{b}=0~~and~~A=\vec{y}
+\end{align}
 \section*{Exercise 3}
 
 \subsection*{Programming}
